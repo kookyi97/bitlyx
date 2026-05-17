@@ -22,15 +22,15 @@ class ModuloController extends Controller
 
     // Guardar nuevo módulo
     public function store(Request $request)
-    {
-        $request->validate([
-            'titulo' => 'required|max:150',
-            'descripcion' => 'nullable'
-        ]);
+{
+    $request->validate([
+        'titulo' => 'required|max:150',
+        'descripcion' => 'nullable'
+    ]);
 
-        Modulo::create($request->all());
-        return redirect()->route('modulos.index')->with('success', 'Módulo creado');
-    }
+    Modulo::create($request->all());
+    return redirect()->route('modulos.index')->with('success', 'Módulo creado');
+}
 
     // Mostrar formulario para editar
     public function edit(Modulo $modulo)

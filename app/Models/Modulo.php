@@ -9,6 +9,8 @@ class Modulo extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;  // ← DESACTIVA TIMESTAMPS
+
     protected $table = 'modulos';
     protected $fillable = ['titulo', 'descripcion'];
 

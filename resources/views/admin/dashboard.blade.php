@@ -82,7 +82,7 @@
             <h3>📋 Gestión de Contenido</h3>
             <div class="menu-buttons">
                 <a href="{{ route('modulos.index') }}" class="btn btn-primary">📚 Gestionar Módulos</a>
-                <a href="{{ route('modulos.create') }}" class="btn btn-success">➕ Crear Módulo</a>
+               <a href="{{ route('modulos.create') }}" class="btn btn-success">➕ Crear Módulo</a>
             </div>
         </div>
     </div>
