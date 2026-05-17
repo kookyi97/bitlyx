@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers;
 
-<<<<<<< HEAD
 use App\Models\Modulo;
 use App\Models\Leccion;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\ProgresoUsuario;
 
 class LeccionController extends Controller
 {
-    // Listar lecciones de un módulo
+    // ========== PARTE 2 - CRUD de Lecciones ==========
+    
+    // Listar lecciones de un módulo (para admin)
     public function index($id)
     {
         $modulo = Modulo::find($id);
@@ -22,14 +25,14 @@ class LeccionController extends Controller
         return view('lecciones.index', compact('modulo', 'lecciones'));
     }
 
-    // Formulario para crear lección
+    // Formulario para crear lección (admin)
     public function create($id)
     {
         $modulo = Modulo::findOrFail($id);
         return view('lecciones.create', compact('modulo'));
     }
 
-    // Guardar nueva lección
+    // Guardar nueva lección (admin)
     public function store(Request $request, $id)
     {
         $request->validate([
@@ -43,7 +46,7 @@ class LeccionController extends Controller
         return redirect()->route('lecciones.index', $modulo->id)->with('success', 'Lección creada');
     }
 
-    // Formulario para editar
+    // Formulario para editar lección (admin)
     public function edit($id)
     {
         $leccion = Leccion::findOrFail($id);
@@ -51,7 +54,7 @@ class LeccionController extends Controller
         return view('lecciones.edit', compact('leccion', 'modulo'));
     }
 
-    // Actualizar lección
+    // Actualizar lección (admin)
     public function update(Request $request, $id)
     {
         $leccion = Leccion::findOrFail($id);
@@ -66,7 +69,7 @@ class LeccionController extends Controller
         return redirect()->route('lecciones.index', $leccion->modulo->id)->with('success', 'Lección actualizada');
     }
 
-    // Eliminar lección
+    // Eliminar lección (admin)
     public function destroy($id)
     {
         $leccion = Leccion::findOrFail($id);
@@ -74,18 +77,10 @@ class LeccionController extends Controller
         $leccion->delete();
         return redirect()->route('lecciones.index', $modulo_id)->with('success', 'Lección eliminada');
     }
-}
-=======
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use App\Models\Leccion;
-use App\Models\Modulo;
-use App\Models\ProgresoUsuario;
 
-class LeccionController extends Controller
-{
-     //Muestra el contenido de una lección. 
-     
+    // ========== PARTE 3 - Aprendizaje (tu amiga) ==========
+    
+    // Muestra el contenido de una lección (para usuario)
     public function show(int $id)
     {
         $leccion = Leccion::with('modulo')->findOrFail($id);
@@ -128,10 +123,7 @@ class LeccionController extends Controller
         ));
     }
 
-    /**
-     * Marca una lección como completada (POST desde el botón).
-     * Si ya existe el registro, lo actualiza. Si no, lo crea.
-     */
+    // Marca una lección como completada (POST desde el botón)
     public function completar(Request $request, int $id)
     {
         $usuario = Auth::user();
@@ -159,4 +151,3 @@ class LeccionController extends Controller
             ->with('success', '¡Módulo completado! Buen trabajo.');
     }
 }
->>>>>>> 8074006363a4f89c4d9d6e456069e7498cf1da13
