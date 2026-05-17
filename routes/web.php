@@ -21,10 +21,9 @@ Route::get('/admin/dashboard', function () {
     return view('admin.dashboard');
 })->middleware('auth')->name('admin.dashboard');
 
-<<<<<<< HEAD
-Route::get('/user/dashboard', function () {
-    return view('user.dashboard');
-})->middleware('auth')->name('user.dashboard');
+Route::get('/user/dashboard', [\App\Http\Controllers\UserDashboardController::class, 'index'])
+    ->middleware(['auth', 'rol:usuario'])
+    ->name('user.dashboard');
 
 // CRUD de Módulos
 Route::get('/modulos', [ModuloController::class, 'index'])->name('modulos.index');
@@ -41,11 +40,8 @@ Route::post('/modulos/{id}/lecciones', [LeccionController::class, 'store'])->nam
 Route::get('/lecciones/{id}/edit', [LeccionController::class, 'edit'])->name('lecciones.edit');
 Route::put('/lecciones/{id}', [LeccionController::class, 'update'])->name('lecciones.update');
 Route::delete('/lecciones/{id}', [LeccionController::class, 'destroy'])->name('lecciones.destroy');
-=======
-Route::get('/user/dashboard', [\App\Http\Controllers\UserDashboardController::class, 'index'])
-    ->middleware(['auth', 'rol:usuario'])
-    ->name('user.dashboard');
 
+// Rutas de aprendizaje (Parte 3 - tu amiga)
 Route::get('/leccion/{id}', [\App\Http\Controllers\LeccionController::class, 'show'])
     ->middleware(['auth', 'rol:usuario'])
     ->name('leccion.show');
@@ -53,4 +49,3 @@ Route::get('/leccion/{id}', [\App\Http\Controllers\LeccionController::class, 'sh
 Route::post('/leccion/{id}/completar', [\App\Http\Controllers\LeccionController::class, 'completar'])
     ->middleware(['auth', 'rol:usuario'])
     ->name('leccion.completar');
->>>>>>> 8074006363a4f89c4d9d6e456069e7498cf1da13
