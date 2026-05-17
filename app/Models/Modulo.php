@@ -10,11 +10,10 @@ class Modulo extends Model
     use HasFactory;
 
     protected $table = 'modulos';
-
     protected $fillable = ['titulo', 'descripcion'];
 
     public function lecciones()
     {
-        return $this->hasMany(Leccion::class);
+        return $this->hasMany(Leccion::class, 'modulo_id')->orderBy('orden');
     }
 }
