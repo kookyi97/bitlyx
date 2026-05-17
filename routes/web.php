@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ModuloController;
 use App\Http\Controllers\LeccionController;
+use App\Http\Controllers\AdminDashboardController;
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -17,9 +18,9 @@ Route::get('/register', [AuthController::class, 'showRegister'])->name('register
 Route::post('/register', [AuthController::class, 'register']);
 
 // Dashboards
-Route::get('/admin/dashboard', function () {
-    return view('admin.dashboard');
-})->middleware('auth')->name('admin.dashboard');
+Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])
+    ->middleware('auth')
+    ->name('admin.dashboard');
 
 Route::get('/user/dashboard', [\App\Http\Controllers\UserDashboardController::class, 'index'])
     ->middleware(['auth', 'rol:usuario'])
@@ -33,7 +34,7 @@ Route::get('/modulos/{modulo}/edit', [ModuloController::class, 'edit'])->name('m
 Route::put('/modulos/{modulo}', [ModuloController::class, 'update'])->name('modulos.update');
 Route::delete('/modulos/{modulo}', [ModuloController::class, 'destroy'])->name('modulos.destroy');
 
-// CRUD de Lecciones
+
 Route::get('/modulos/{id}/lecciones', [LeccionController::class, 'index'])->name('lecciones.index');
 Route::get('/modulos/{id}/lecciones/create', [LeccionController::class, 'create'])->name('lecciones.create');
 Route::post('/modulos/{id}/lecciones', [LeccionController::class, 'store'])->name('lecciones.store');
@@ -41,7 +42,7 @@ Route::get('/lecciones/{id}/edit', [LeccionController::class, 'edit'])->name('le
 Route::put('/lecciones/{id}', [LeccionController::class, 'update'])->name('lecciones.update');
 Route::delete('/lecciones/{id}', [LeccionController::class, 'destroy'])->name('lecciones.destroy');
 
-// Rutas de aprendizaje (Parte 3 - tu amiga)
+
 Route::get('/leccion/{id}', [\App\Http\Controllers\LeccionController::class, 'show'])
     ->middleware(['auth', 'rol:usuario'])
     ->name('leccion.show');
