@@ -57,3 +57,5 @@ class ModuloController extends Controller
         return redirect()->route('modulos.index')->with('success', 'Módulo eliminado');
     }
 }
+
+// Parte 2 - CRUD completado
