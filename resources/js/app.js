@@ -13,3 +13,8 @@ if (document.getElementById('user-dashboard-app')) {
 if (document.getElementById('leccion-app')) {
   createApp(VistaLeccion).mount('#leccion-app')
 }
+import QuizComponent from './components/QuizComponent.vue'
+
+if (document.getElementById('quiz-app')) {
+  createApp(QuizComponent).mount('#quiz-app')
+}

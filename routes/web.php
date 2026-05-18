@@ -5,6 +5,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ModuloController;
 use App\Http\Controllers\LeccionController;
 use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\Admin\PreguntaController;
+use App\Http\Controllers\QuizController;
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -50,3 +52,20 @@ Route::get('/leccion/{id}', [\App\Http\Controllers\LeccionController::class, 'sh
 Route::post('/leccion/{id}/completar', [\App\Http\Controllers\LeccionController::class, 'completar'])
     ->middleware(['auth', 'rol:usuario'])
     ->name('leccion.completar');
+
+
+Route::middleware('auth')->group(function () {
+    Route::get('/admin/preguntas',           [PreguntaController::class, 'index'])->name('admin.preguntas.index');
+    Route::get('/admin/preguntas/create',    [PreguntaController::class, 'create'])->name('admin.preguntas.create');
+    Route::post('/admin/preguntas',          [PreguntaController::class, 'store'])->name('admin.preguntas.store');
+    Route::get('/admin/preguntas/{id}/edit', [PreguntaController::class, 'edit'])->name('admin.preguntas.edit');
+    Route::put('/admin/preguntas/{id}',      [PreguntaController::class, 'update'])->name('admin.preguntas.update');
+    Route::delete('/admin/preguntas/{id}',   [PreguntaController::class, 'destroy'])->name('admin.preguntas.destroy');
+});
+
+
+Route::middleware(['auth', 'rol:usuario'])->group(function () {
+    Route::get('/quiz/{leccion_id}',           [QuizController::class, 'show'])->name('quiz.show');
+    Route::post('/quiz/guardar',               [QuizController::class, 'guardar'])->name('quiz.guardar');
+    Route::get('/quiz/{leccion_id}/resultado', [QuizController::class, 'resultado'])->name('quiz.resultado');
+});

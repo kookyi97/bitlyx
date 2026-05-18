@@ -70,6 +70,13 @@
             </button>
           </form>
           <span v-else class="ya-completada">Ya completada</span>
+          <a
+            v-if="leccion.completada"
+            :href="'/quiz/' + leccion.id"
+            class="btn-quiz"
+          >
+            Ir al Quiz ⚡
+          </a>
 
           <a
             v-if="siguiente"
@@ -317,4 +324,15 @@ const contenidoFormateado = computed(() =>
   .topbar-center { display: none; }
   .leccion-nav-buttons { flex-wrap: wrap; justify-content: center; }
 }
+.btn-quiz {
+  padding: 12px 28px;
+  background: linear-gradient(135deg, #1e3a8a, #2563eb);
+  color: #ffffff;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  transition: opacity 0.15s;
+}
+.btn-quiz:hover { opacity: 0.9; }
 </style>

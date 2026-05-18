@@ -81,15 +81,16 @@
         <div class="menu">
             <h3>📋 Gestión de Contenido</h3>
             <div class="menu-buttons">
-                <a href="{{ route('modulos.index') }}" class="btn btn-primary">📚 Gestionar Módulos</a>
-               <a href="{{ route('modulos.create') }}" class="btn btn-success">➕ Crear Módulo</a>
+                <a href="{{ route('modulos.index') }}" class="btn btn-primary"> Gestionar Módulos</a>
+               <a href="{{ route('modulos.create') }}" class="btn btn-success">Crear Módulo</a>
+               <a href="{{ route('admin.preguntas.index') }}" class="btn btn-info"> Gestionar Preguntas</a>
             </div>
         </div>
     </div>
 
     <form action="{{ route('logout') }}" method="POST" style="position: fixed; top: 20px; right: 20px;">
         @csrf
-        <button type="submit" class="btn" style="background: #e74c3c; color: white; padding: 8px 16px;">🚪 Cerrar Sesión</button>
+        <button type="submit" class="btn" style="background: #e74c3c; color: white; padding: 8px 16px;"> Cerrar Sesión</button>
     </form>
 </body>
 </html>
