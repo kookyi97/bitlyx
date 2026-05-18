@@ -1,67 +1,56 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Nueva Pregunta | Bitlyx Admin</title>
+    <title>Nueva Pregunta</title>
     <style>
-        body { font-family: Arial; padding: 20px; background: #f5f5f5; }
-        .card { background: white; padding: 28px; border-radius: 8px; max-width: 700px; margin: 0 auto; }
-        h2 { margin-bottom: 24px; color: #2c3e50; }
-        label { display: block; font-weight: bold; margin-bottom: 4px; margin-top: 14px; }
-        input, select, textarea { width: 100%; padding: 9px 12px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; font-size: 14px; }
-        .opcion-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
-        .opcion-row input[type="text"] { flex: 1; }
-        .opcion-row input[type="radio"] { width: auto; }
-        .btn-submit { background: #4CAF50; color: white; padding: 10px 24px; border: none; border-radius: 5px; cursor: pointer; font-size: 15px; margin-top: 20px; }
-        .btn-back { color: #2196F3; text-decoration: none; display: inline-block; margin-bottom: 16px; }
-        .hint { font-weight: normal; color: #666; font-size: 13px; }
+        body { font-family: Arial; padding: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, textarea, select { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 3px; }
+        button { background: #4CAF50; color: white; padding: 10px 20px; border: none; cursor: pointer; border-radius: 3px; }
+        .btn-primary { background: #2196F3; color: white; padding: 10px 20px; text-decoration: none; border-radius: 3px; display: inline-block; }
     </style>
 </head>
 <body>
-<div class="card">
-    <a href="{{ route('admin.preguntas.index', ['leccion_id' => $leccion_id]) }}" class="btn-back">← Volver</a>
-    <h2>Nueva Pregunta</h2>
-
-    @if($errors->any())
-        <div style="color:#f44336;margin-bottom:12px;">
-            @foreach($errors->all() as $e) <div>• {{ $e }}</div> @endforeach
-        </div>
-    @endif
+    <h1>Nueva Pregunta</h1>
+    <a href="{{ route('admin.preguntas.index') }}" class="btn-primary">Volver</a>
 
     <form method="POST" action="{{ route('admin.preguntas.store') }}">
         @csrf
-
-        <label>Lección</label>
-        <select name="leccion_id">
-            @foreach($lecciones as $lec)
-                <option value="{{ $lec->id }}" {{ $leccion_id == $lec->id ? 'selected' : '' }}>
-                    {{ $lec->titulo }}
-                </option>
-            @endforeach
-        </select>
-
-        <label>Enunciado de la pregunta</label>
-        <textarea name="enunciado" rows="3" required>{{ old('enunciado') }}</textarea>
-
-        <label>XP por respuesta correcta</label>
-        <input type="number" name="xp" value="{{ old('xp', 10) }}" min="1" max="100">
-
-        <label style="margin-top:20px;">
-            Opciones de respuesta
-            <span class="hint"> — marca el radio de la correcta</span>
-        </label>
-
-        @for($i = 0; $i < 4; $i++)
-        <div class="opcion-row">
-            <input type="radio" name="correcta" value="{{ $i }}"
-                {{ old('correcta', 0) == $i ? 'checked' : '' }} required>
-            <input type="text" name="opciones[{{ $i }}]"
-                placeholder="Opción {{ $i + 1 }}"
-                value="{{ old('opciones.'.$i) }}" required>
+        <div class="form-group">
+            <label>Lección ID:</label>
+            <input type="number" name="leccion_id" required>
         </div>
-        @endfor
-
-        <button type="submit" class="btn-submit">Guardar Pregunta</button>
+        <div class="form-group">
+            <label>Enunciado:</label>
+            <textarea name="enunciado" rows="5" required></textarea>
+        </div>
+        <div class="form-group">
+            <label>XP:</label>
+            <input type="number" name="xp" value="10" required>
+        </div>
+        <h3>Opciones</h3>
+        <div class="form-group">
+            <label>Opción 1:</label>
+            <input type="text" name="opciones[]" required>
+        </div>
+        <div class="form-group">
+            <label>Opción 2:</label>
+            <input type="text" name="opciones[]" required>
+        </div>
+        <div class="form-group">
+            <label>Opción 3:</label>
+            <input type="text" name="opciones[]" required>
+        </div>
+        <div class="form-group">
+            <label>Opción 4:</label>
+            <input type="text" name="opciones[]" required>
+        </div>
+        <div class="form-group">
+            <label>Correcta (0-3):</label>
+            <input type="number" name="correcta" min="0" max="3" required>
+        </div>
+        <button type="submit">Guardar</button>
     </form>
-</div>
 </body>
 </html>

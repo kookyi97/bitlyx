@@ -18,7 +18,7 @@
     </style>
 </head>
 <body>
-    <a href="/admin/dashboard" class="btn-admin">🏠 Volver al Dashboard</a>
+    <a href="/admin/dashboard" class="btn-admin">Volver al Dashboard</a>
     
     <h1>Gestión de Módulos</h1>
     
@@ -26,8 +26,7 @@
         <div class="alert">{{ session('success') }}</div>
     @endif
     
-    <a href="{{ route('modulos.create') }}" class="btn btn-success">+ Nuevo Módulo</a>
-    
+    <a href="{{ route('modulos.create') }}" class="btn btn-success">Nuevo Módulo</a>
     <table>
         <thead>
             <tr>

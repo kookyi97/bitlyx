@@ -22,8 +22,8 @@
         <div class="alert">{{ session('success') }}</div>
     @endif
     
-    <a href="/modulos" class="btn btn-info">← Volver a Módulos</a>
-    <a href="/modulos/{{ $modulo->id }}/lecciones/create" class="btn btn-success">+ Nueva Lección</a>
+    <a href="/modulos" class="btn btn-info">Volver a Módulos</a>
+    <a href="/modulos/{{ $modulo->id }}/lecciones/create" class="btn btn-success">Nueva Lección</a>
     
     @if($lecciones->count() > 0)
         <table>
