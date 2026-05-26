@@ -65,6 +65,7 @@ class QuizController extends Controller
                 'xp_ganado'  => $request->xp_ganado,
             ]);
 
+            // Sumar XP al usuario
             DB::table('usuarios')
                 ->where('id', $usuario->id)
                 ->increment('xp_total', $request->xp_ganado);

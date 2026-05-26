@@ -9,21 +9,48 @@ use Illuminate\Support\Facades\Auth;
 class UserDashboardController extends Controller
 {
     public function index()
-{
-    $modulos = Modulo::with('lecciones')->get();
-    $usuario = Auth::user();
-    
-    $progresos = [];
-    foreach ($modulos as $modulo) {
-        $totalLecciones = $modulo->lecciones->count();
-        $completadas = ProgresoUsuario::where('usuario_id', $usuario->id)
-            ->whereIn('leccion_id', $modulo->lecciones->pluck('id'))
-            ->where('completada', 1)
-            ->count();
+    {
+        $modulos = Modulo::with('lecciones')->get();
+        $usuario = Auth::user();
         
-        $progresos[$modulo->id] = $totalLecciones > 0 ? round(($completadas / $totalLecciones) * 100) : 0;
+        $totalLeccionesGenerales = 0;
+        $leccionesCompletadasGlobal = 0;
+        $progresos = [];
+        
+        foreach ($modulos as $modulo) {
+            $leccionesIds = $modulo->lecciones->pluck('id')->toArray();
+            $totalLecciones = count($leccionesIds);
+            $totalLeccionesGenerales += $totalLecciones;
+            
+            $completadas = ProgresoUsuario::where('usuario_id', $usuario->id)
+                ->whereIn('leccion_id', $leccionesIds)
+                ->where('completada', 1)
+                ->count();
+            
+            $leccionesCompletadasGlobal += $completadas;
+            
+            $completadasMap = ProgresoUsuario::where('usuario_id', $usuario->id)
+                ->whereIn('leccion_id', $leccionesIds)
+                ->pluck('completada', 'leccion_id')
+                ->toArray();
+            
+            $progresos[$modulo->id] = [
+                'porcentaje' => $totalLecciones > 0 ? round(($completadas / $totalLecciones) * 100) : 0,
+                'completadas' => $completadasMap,
+                'primeraLeccion' => $modulo->lecciones->first()->id ?? null,
+            ];
+        }
+        
+        $porcentajeGlobal = $totalLeccionesGenerales > 0 
+            ? round(($leccionesCompletadasGlobal / $totalLeccionesGenerales) * 100) 
+            : 0;
+        
+        return view('user.dashboard', compact(
+            'modulos', 
+            'progresos', 
+            'porcentajeGlobal', 
+            'leccionesCompletadasGlobal',
+            'totalLeccionesGenerales'
+        ));
     }
-    
-    return view('user.dashboard', compact('modulos', 'progresos'));
-}
 }
