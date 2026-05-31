@@ -83,7 +83,7 @@
             margin-bottom: 1.5rem;
         }
 
-        /* Filtros */
+        /* Filtros - SOLO los elementos originales */
         .filtros {
             background: #FFFFFF;
             border-radius: 24px;
@@ -135,27 +135,6 @@
         .filtros button:hover {
             background: #15803D;
             color: white;
-        }
-
-        .filtros a {
-            background: #FFFFFF;
-            border: 1px solid #E5E7EB;
-            color: #6B7280;
-            padding: 0.6rem 1.2rem;
-            border-radius: 40px;
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 500;
-            transition: all 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .filtros a:hover {
-            background: #F3F4F6;
-            border-color: #D1D5DB;
-            color: #374151;
         }
 
         /* Tabla moderna */
@@ -276,7 +255,7 @@
                 flex-direction: column;
                 align-items: stretch;
             }
-            .filtros select, .filtros button, .filtros a {
+            .filtros select, .filtros button {
                 width: 100%;
                 justify-content: center;
             }
@@ -300,7 +279,7 @@
 
         <h1 class="page-title">Resultados de Quizzes</h1>
 
-        <!-- Filtros (exactamente igual estructura) -->
+        <!-- Filtros - SOLO los elementos originales (sin botón Limpiar) -->
         <div class="filtros">
             <form method="GET" action="">
                 <select name="usuario_id">
@@ -324,9 +303,6 @@
                 <button type="submit">
                     <i class="fas fa-filter"></i> Filtrar
                 </button>
-                <a href="{{ route('admin.resultados_quiz.index') }}">
-                    <i class="fas fa-eraser"></i> Limpiar
-                </a>
             </form>
         </div>
 
