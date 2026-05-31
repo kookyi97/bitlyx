@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Bitlyx - Iniciar Sesión</title>
+    <title>Bitlyx Academy - Iniciar Sesión</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -13,8 +14,9 @@
         }
 
         body {
-            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, sans-serif;
+            font-family: 'Inter', 'Nunito', sans-serif;
             min-height: 100vh;
+            background: #FFFFFF;
         }
 
         .login-container {
@@ -22,10 +24,10 @@
             min-height: 100vh;
         }
 
-        /* Mitad izquierda - Azul */
+        /* Mitad izquierda - Verde */
         .left-side {
             flex: 1;
-            background: linear-gradient(135deg, #1a56db 0%, #0e3a8a 100%);
+            background: linear-gradient(135deg, #4ADE80 0%, #15803D 100%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -41,7 +43,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" opacity="0.1"><path fill="white" d="M100,0 L200,100 L100,200 L0,100 Z"/></svg>') repeat;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" opacity="0.05"><path fill="white" d="M100,0 L200,100 L100,200 L0,100 Z"/></svg>') repeat;
             background-size: 60px;
         }
 
@@ -87,7 +89,7 @@
             width: 40px;
             height: 40px;
             background: rgba(255,255,255,0.2);
-            border-radius: 10px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -108,10 +110,10 @@
             opacity: 0.8;
         }
 
-        /* Mitad derecha - Blanca con formulario */
+        /* Mitad derecha - Formulario */
         .right-side {
             flex: 1;
-            background: white;
+            background: #FFFFFF;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -125,82 +127,85 @@
 
         .form-title {
             font-size: 32px;
-            font-weight: 600;
-            color: #1a2a3a;
+            font-weight: 700;
+            color: #111827;
             margin-bottom: 8px;
         }
 
         .form-subtitle {
-            color: #6c757d;
-            margin-bottom: 30px;
+            color: #6B7280;
+            margin-bottom: 32px;
             font-size: 14px;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
 
         .form-group label {
             display: block;
             margin-bottom: 8px;
             font-weight: 500;
-            color: #1a2a3a;
+            color: #111827;
             font-size: 14px;
         }
 
         .form-group input {
             width: 100%;
             padding: 12px 16px;
-            border: 1px solid #e2e8f0;
-            border-radius: 10px;
+            border: 1px solid #E5E7EB;
+            border-radius: 12px;
             font-size: 14px;
             transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
         }
 
         .form-group input:focus {
             outline: none;
-            border-color: #1a56db;
-            box-shadow: 0 0 0 3px rgba(26,86,219,0.1);
+            border-color: #4ADE80;
+            box-shadow: 0 0 0 3px rgba(74,222,128,0.1);
         }
 
         .btn-login {
             width: 100%;
             padding: 12px;
-            background: #1a56db;
-            color: white;
+            background: #4ADE80;
+            color: #15803D;
             border: none;
-            border-radius: 10px;
+            border-radius: 100px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
         }
 
         .btn-login:hover {
-            background: #0e3a8a;
+            background: #15803D;
+            color: white;
             transform: translateY(-1px);
         }
 
         .error-message {
-            background: #fee2e2;
-            color: #dc2626;
+            background: #FEE2E2;
+            color: #DC2626;
             padding: 12px;
-            border-radius: 10px;
-            margin-bottom: 20px;
+            border-radius: 12px;
+            margin-bottom: 24px;
             font-size: 14px;
         }
 
         .register-link {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 24px;
             font-size: 14px;
-            color: #6c757d;
+            color: #6B7280;
         }
 
         .register-link a {
-            color: #1a56db;
+            color: #4ADE80;
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
         }
 
         .register-link a:hover {
@@ -211,15 +216,18 @@
             .left-side {
                 display: none;
             }
+            .right-side {
+                padding: 20px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="login-container">
-        <!-- LADO IZQUIERDO - AZUL -->
+        <!-- LADO IZQUIERDO - VERDE -->
         <div class="left-side">
             <div class="left-content">
-                <div class="logo">Bitlyx</div>
+                <div class="logo">Bitlyx Academy</div>
                 <div class="tagline">Aprende a tu ritmo</div>
                 <div class="description">
                     Plataforma interactiva de aprendizaje con cursos, quizzes y seguimiento de progreso.

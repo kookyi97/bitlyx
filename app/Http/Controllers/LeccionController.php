@@ -12,7 +12,7 @@ class LeccionController extends Controller
 {
     // ========== PARTE 2 - CRUD de Lecciones ==========
     
-    // Listar lecciones de un módulo (para admin)
+    // Listar lecciones de un módulo (para admin) - CON PAGINACIÓN
     public function index($id)
     {
         $modulo = Modulo::find($id);
@@ -21,7 +21,7 @@ class LeccionController extends Controller
             return "Módulo con ID " . $id . " no encontrado";
         }
         
-        $lecciones = $modulo->lecciones()->orderBy('orden')->get();
+       $lecciones = $modulo->lecciones()->orderBy('orden')->paginate(10);
         return view('lecciones.index', compact('modulo', 'lecciones'));
     }
 

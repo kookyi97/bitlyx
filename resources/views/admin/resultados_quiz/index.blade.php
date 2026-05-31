@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Bitlyx Academy — Gestión de Módulos</title>
+    <title>Bitlyx Academy — Resultados de Quizzes</title>
     <!-- Google Fonts: Nunito + Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Nunito:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Font Awesome 6 -->
@@ -53,14 +53,14 @@
             color: transparent;
         }
 
-        /* Botón Volver al Dashboard (exactamente igual funcionalidad) */
-        .btn-admin {
+        /* Botón Volver al Dashboard */
+        .btn-back {
             background: #FFFFFF;
             border: 1px solid #E5E7EB;
             color: #374151;
             padding: 0.6rem 1.2rem;
-            text-decoration: none;
             border-radius: 40px;
+            text-decoration: none;
             font-weight: 600;
             font-size: 0.85rem;
             transition: all 0.2s;
@@ -69,7 +69,7 @@
             gap: 8px;
         }
 
-        .btn-admin:hover {
+        .btn-back:hover {
             background: #4ADE80;
             border-color: #4ADE80;
             color: #064E3B;
@@ -83,45 +83,82 @@
             margin-bottom: 1.5rem;
         }
 
-        /* Alertas */
-        .alert {
-            background: #E8F5E9;
-            border-left: 4px solid #4ADE80;
-            color: #15803D;
-            padding: 1rem 1.2rem;
-            border-radius: 16px;
-            margin-bottom: 1.8rem;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        /* Filtros */
+        .filtros {
+            background: #FFFFFF;
+            border-radius: 24px;
+            border: 1px solid #E5E7EB;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
         }
 
-        /* Botón Nuevo Módulo */
-        .btn-new {
-            background: #4ADE80;
-            color: #064E3B;
-            padding: 0.7rem 1.6rem;
-            border-radius: 40px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 0.85rem;
-            display: inline-flex;
+        .filtros form {
+            display: flex;
+            flex-wrap: wrap;
             align-items: center;
-            gap: 8px;
+            gap: 1rem;
+        }
+
+        .filtros select {
+            padding: 0.6rem 1rem;
+            border-radius: 40px;
+            border: 1px solid #E5E7EB;
+            background: #F9FAFB;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            color: #374151;
+            outline: none;
             transition: all 0.2s;
-            margin-bottom: 1.5rem;
-            border: none;
             cursor: pointer;
         }
 
-        .btn-new:hover {
-            background: #15803D;
-            color: white;
-            transform: scale(0.98);
+        .filtros select:focus {
+            border-color: #4ADE80;
+            box-shadow: 0 0 0 2px rgba(74,222,128,0.2);
         }
 
-        /* Tabla moderna minimalista */
+        .filtros button {
+            background: #4ADE80;
+            color: #064E3B;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filtros button:hover {
+            background: #15803D;
+            color: white;
+        }
+
+        .filtros a {
+            background: #FFFFFF;
+            border: 1px solid #E5E7EB;
+            color: #6B7280;
+            padding: 0.6rem 1.2rem;
+            border-radius: 40px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filtros a:hover {
+            background: #F3F4F6;
+            border-color: #D1D5DB;
+            color: #374151;
+        }
+
+        /* Tabla moderna */
         .table-wrapper {
             background: #FFFFFF;
             border-radius: 24px;
@@ -133,12 +170,12 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
 
         th {
             text-align: left;
-            padding: 1rem 1.2rem;
+            padding: 1rem 1rem;
             background: #F9FAFB;
             font-weight: 700;
             color: #374151;
@@ -147,7 +184,7 @@
         }
 
         td {
-            padding: 1rem 1.2rem;
+            padding: 0.9rem 1rem;
             border-bottom: 1px solid #F3F4F6;
             color: #4B5563;
         }
@@ -160,90 +197,54 @@
             background-color: #FEFCE8;
         }
 
-        /* Botones de acción (exactamente los mismos: Ver Lecciones, Editar, Eliminar) */
-        .btn-actions {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
+        /* Badge para porcentaje */
+        .porcentaje-badge {
+            display: inline-block;
+            padding: 0.2rem 0.7rem;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 700;
         }
 
-        .btn-info {
+        .porcentaje-alto {
             background: #E8F5E9;
             color: #15803D;
-            padding: 0.4rem 1rem;
-            border-radius: 40px;
-            text-decoration: none;
-            font-size: 0.75rem;
-            font-weight: 600;
-            transition: all 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
         }
 
-        .btn-info:hover {
-            background: #4ADE80;
-            color: #064E3B;
-        }
-
-        .btn-warning {
+        .porcentaje-medio {
             background: #FEF3C7;
             color: #B45309;
-            padding: 0.4rem 1rem;
-            border-radius: 40px;
-            text-decoration: none;
-            font-size: 0.75rem;
-            font-weight: 600;
-            transition: all 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
         }
 
-        .btn-warning:hover {
-            background: #F59E0B;
-            color: white;
-        }
-
-        .btn-danger {
+        .porcentaje-bajo {
             background: #FEE2E2;
             color: #B91C1C;
-            border: none;
-            padding: 0.4rem 1rem;
+        }
+
+        /* XP badge */
+        .xp-badge {
+            background: #F3E8FF;
+            color: #7E22CE;
+            padding: 0.2rem 0.6rem;
             border-radius: 40px;
+            font-weight: 700;
             font-size: 0.75rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
+            display: inline-block;
         }
 
-        .btn-danger:hover {
-            background: #DC2626;
-            color: white;
-        }
-
-        /* Paginación moderna */
+        /* Paginación */
         .pagination-wrapper {
             margin-top: 2rem;
             display: flex;
             justify-content: center;
         }
 
-        .pagination-wrapper :deep(.pagination) {
-            display: flex;
-            gap: 6px;
-            list-style: none;
-        }
-
-        /* Para la paginación de Laravel (estilos por defecto) */
         .pagination {
             display: flex;
             gap: 6px;
             flex-wrap: wrap;
         }
+
         .pagination a, .pagination span {
             padding: 0.5rem 1rem;
             background: white;
@@ -254,11 +255,13 @@
             font-size: 0.85rem;
             transition: all 0.2s;
         }
+
         .pagination a:hover {
             background: #4ADE80;
             border-color: #4ADE80;
             color: #064E3B;
         }
+
         .pagination .active span {
             background: #15803D;
             color: white;
@@ -269,86 +272,107 @@
             body {
                 padding: 1rem;
             }
-            th, td {
-                padding: 0.75rem;
-            }
-            .btn-actions {
+            .filtros form {
                 flex-direction: column;
+                align-items: stretch;
+            }
+            .filtros select, .filtros button, .filtros a {
+                width: 100%;
+                justify-content: center;
+            }
+            th, td {
+                padding: 0.6rem;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Header con botón Volver al Dashboard (exactamente igual) -->
+        <!-- Header con botón Volver al Dashboard -->
         <div class="header-bar">
             <div class="logo-area">
                 <h1>Bitlyx <span>Academy</span></h1>
             </div>
-            <a href="/admin/dashboard" class="btn-admin">
+            <a href="{{ route('admin.dashboard') }}" class="btn-back">
                 <i class="fas fa-arrow-left"></i> Volver al Dashboard
             </a>
         </div>
 
-        <h1 class="page-title">Gestión de Módulos</h1>
+        <h1 class="page-title">Resultados de Quizzes</h1>
 
-        @if(session('success'))
-            <div class="alert">
-                <i class="fas fa-check-circle"></i> {{ session('success') }}
-            </div>
-        @endif
+        <!-- Filtros (exactamente igual estructura) -->
+        <div class="filtros">
+            <form method="GET" action="">
+                <select name="usuario_id">
+                    <option value="">Todos los usuarios</option>
+                    @foreach($usuarios as $usuario)
+                        <option value="{{ $usuario->id }}" {{ request('usuario_id') == $usuario->id ? 'selected' : '' }}>
+                            {{ $usuario->nombre }}
+                        </option>
+                    @endforeach
+                </select>
 
-        <!-- Botón Nuevo Módulo (original) -->
-        <a href="{{ route('modulos.create') }}" class="btn-new">
-            <i class="fas fa-plus-circle"></i> Nuevo Módulo
-        </a>
+                <select name="leccion_id">
+                    <option value="">Todas las lecciones</option>
+                    @foreach($lecciones as $leccion)
+                        <option value="{{ $leccion->id }}" {{ request('leccion_id') == $leccion->id ? 'selected' : '' }}>
+                            {{ $leccion->titulo }}
+                        </option>
+                    @endforeach
+                </select>
 
-        <!-- Tabla de módulos -->
+                <button type="submit">
+                    <i class="fas fa-filter"></i> Filtrar
+                </button>
+                <a href="{{ route('admin.resultados_quiz.index') }}">
+                    <i class="fas fa-eraser"></i> Limpiar
+                </a>
+            </form>
+        </div>
+
+        <!-- Tabla de resultados -->
         <div class="table-wrapper">
             <table>
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Título</th>
-                        <th>Descripción</th>
-                        <th>Lecciones</th>
-                        <th>Acciones</th>
+                        <th>Usuario</th>
+                        <th>Lección</th>
+                        <th>Correctas</th>
+                        <th>Porcentaje</th>
+                        <th>XP Ganado</th>
+                        <th>Fecha</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($modulos as $modulo)
+                    @foreach($resultados as $r)
+                    @php
+                        $porcentaje = round(($r->correctas / max($r->total, 1)) * 100);
+                        $porcentajeClase = $porcentaje >= 70 ? 'porcentaje-alto' : ($porcentaje >= 40 ? 'porcentaje-medio' : 'porcentaje-bajo');
+                    @endphp
                     <tr>
-                        <td>{{ $modulo->id }}</td>
-                        <td><strong>{{ $modulo->titulo }}</strong></td>
-                        <td>{{ $modulo->descripcion }}</td>
+                        <td>{{ $r->usuario->nombre ?? 'N/A' }}</td>
+                        <td>{{ $r->leccion->titulo ?? 'N/A' }}</td>
+                        <td><strong>{{ $r->correctas }}</strong> / {{ $r->total }}</td>
                         <td>
-                            <a href="/modulos/{{ $modulo->id }}/lecciones" class="btn-info">
-                                <i class="fas fa-book-open"></i> Ver Lecciones
-                            </a>
+                            <span class="porcentaje-badge {{ $porcentajeClase }}">
+                                {{ $porcentaje }}%
+                            </span>
                         </td>
                         <td>
-                            <div class="btn-actions">
-                                <a href="/modulos/{{ $modulo->id }}/edit" class="btn-warning">
-                                    <i class="fas fa-edit"></i> Editar
-                                </a>
-                                <form action="/modulos/{{ $modulo->id }}" method="POST" style="display:inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn-danger" onclick="return confirm('¿Eliminar este módulo?')">
-                                        <i class="fas fa-trash-alt"></i> Eliminar
-                                    </button>
-                                </form>
-                            </div>
+                            <span class="xp-badge">
+                                <i class="fas fa-star"></i> +{{ $r->xp_ganado }}
+                            </span>
                         </td>
+                        <td>{{ $r->fecha }}</td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
 
-        <!-- Paginación (exactamente igual) -->
+        <!-- Paginación -->
         <div class="pagination-wrapper">
-            {{ $modulos->links() }}
+            {{ $resultados->links() }}
         </div>
     </div>
 </body>

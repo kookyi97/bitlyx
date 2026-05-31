@@ -10,7 +10,7 @@ class Usuario extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    public $timestamps = false;  // ← DESACTIVA TIMESTAMPS
+    public $timestamps = false;
 
     protected $table = 'usuarios';
     protected $primaryKey = 'id';
@@ -20,12 +20,16 @@ class Usuario extends Authenticatable
         'email',
         'password',
         'rol_id',
+        'xp_total',
+        'activo',
     ];
 
     protected $hidden = [
         'password',
         'remember_token',
     ];
+
+    protected $dates = ['created_at'];
 
     public function rol()
     {

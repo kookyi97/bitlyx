@@ -9,10 +9,10 @@ class ModuloController extends Controller
 {
     // Mostrar lista de módulos
     public function index()
-    {
-        $modulos = Modulo::all();
-        return view('modulos.index', compact('modulos'));
-    }
+{
+    $modulos = Modulo::paginate(10);  // antes era Modulo::all()
+    return view('modulos.index', compact('modulos'));
+}
 
     // Mostrar formulario para crear
     public function create()
