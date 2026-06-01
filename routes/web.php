@@ -56,7 +56,7 @@ Route::post('/leccion/{id}/completar', [LeccionController::class, 'completar'])
     ->name('leccion.completar');
 
 // Gestión de Preguntas (Admin)
-Route::middleware(['auth', 'rol:admin'])->prefix('admin')->group(function () {
+Route::middleware(['auth', 'rol:admin', 'no.cache'])->prefix('admin')->group(function () {
     Route::resource('preguntas', PreguntaController::class)->names('admin.preguntas');
 });
 
@@ -72,7 +72,7 @@ Route::middleware(['auth', 'rol:admin'])->prefix('admin')->group(function () {
 });
 
 // Rutas de Quiz (usuario)
-Route::middleware(['auth', 'rol:usuario'])->group(function () {
+Route::middleware(['auth', 'rol:usuario', 'no.cache'])->group(function () {
     Route::get('/quiz/{leccion_id}', [QuizController::class, 'show'])->name('quiz.show');
     Route::post('/quiz/guardar', [QuizController::class, 'guardar'])->name('quiz.guardar');
     Route::get('/quiz/{leccion_id}/resultado', [QuizController::class, 'resultado'])->name('quiz.resultado');

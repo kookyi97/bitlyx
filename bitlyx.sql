@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 17-05-2026 a las 03:29:15
+-- Servidor: localhost:3307
+-- Tiempo de generación: 01-06-2026 a las 03:40:03
 -- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.0.30
+-- Versión de PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `bitlyx_db`
+-- Base de datos: `bitlyx`
 --
 
 -- --------------------------------------------------------
@@ -57,7 +57,14 @@ CREATE TABLE `lecciones` (
 
 INSERT INTO `lecciones` (`id`, `modulo_id`, `titulo`, `contenido`, `orden`) VALUES
 (1, 1, 'Variables en PHP', 'Una variable en PHP empieza con $. Ejemplo: $nombre = \"Bitlyx\";', 1),
-(2, 1, 'Estructuras de control', 'PHP usa if, else, for y while para controlar el flujo.', 2);
+(2, 1, 'Estructuras de control', 'PHP usa if, else, for y while para controlar el flujo.', 2),
+(3, 1, 'Funciones en PHP', 'Las funciones permiten reutilizar código', 3),
+(4, 2, 'Introducción a SQL', 'Conceptos básicos de SQL', 1),
+(5, 2, 'Consultas SELECT', 'Recuperar datos', 2),
+(6, 2, 'JOINS', 'Relacionar tablas', 3),
+(7, 3, 'Rutas', 'Definición de rutas', 1),
+(8, 3, 'Controladores', 'Lógica de negocio', 2),
+(9, 3, 'Blade', 'Motor de plantillas', 3);
 
 -- --------------------------------------------------------
 
@@ -99,7 +106,9 @@ CREATE TABLE `modulos` (
 --
 
 INSERT INTO `modulos` (`id`, `titulo`, `descripcion`, `created_at`) VALUES
-(1, 'Introducción a PHP', 'Conceptos básicos del lenguaje PHP', '2026-05-16 23:07:22');
+(1, 'Introducción a PHP', 'Conceptos básicos del lenguaje PHP', '2026-05-16 23:07:22'),
+(2, 'Bases de Datos', 'Fundamentos de SQL', '2026-05-31 23:41:55'),
+(3, 'Laravel', 'Framework PHP moderno', '2026-05-31 23:41:55');
 
 -- --------------------------------------------------------
 
@@ -259,16 +268,18 @@ CREATE TABLE `usuarios` (
   `password` varchar(255) NOT NULL,
   `rol_id` int(11) NOT NULL,
   `xp_total` int(11) DEFAULT 0,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `activo` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `nombre`, `email`, `password`, `rol_id`, `xp_total`, `created_at`) VALUES
-(1, 'Admin Bitlyx', 'admin@bitlyx.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 1, 0, '2026-05-16 23:07:22'),
-(2, 'Juan Pérez', 'juan@bitlyx.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 2, 0, '2026-05-16 23:07:22');
+INSERT INTO `usuarios` (`id`, `nombre`, `email`, `password`, `rol_id`, `xp_total`, `created_at`, `activo`) VALUES
+(1, 'Admin Bitlyx', 'admin@bitlyx.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 1, 0, '2026-05-16 23:07:22', 1),
+(2, 'Juan Pérez', 'juan@bitlyx.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 2, 0, '2026-05-16 23:07:22', 1),
+(3, 'Carlos Mendoza', 'carlos@bitlyx.com', '1111111111', 2, 0, '2026-05-16 23:07:22', 0);
 
 --
 -- Índices para tablas volcadas
@@ -379,7 +390,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT de la tabla `lecciones`
 --
 ALTER TABLE `lecciones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `migrations`
@@ -391,7 +402,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT de la tabla `modulos`
 --
 ALTER TABLE `modulos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `opciones`
@@ -439,7 +450,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Restricciones para tablas volcadas
