@@ -6,34 +6,22 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-/**
- * Controlador: PerfilController
- * Persona 3 — Vista y actualización del perfil del usuario.
- */
 class PerfilController extends Controller
 {
-    /**
-     * Muestra la vista del perfil.
-     */
     public function show()
     {
         return view('user.perfil');
     }
 
-    /**
-     * Actualiza nombre, correo y (opcionalmente) contraseña.
-     */
     public function update(Request $request)
     {
         $usuario = Auth::user();
 
-        // Validaciones
         $rules = [
             'nombre' => 'required|string|max:100',
             'email'  => 'required|email|max:150|unique:usuarios,email,' . $usuario->id,
         ];
 
-        // Solo validar contraseña si el usuario quiere cambiarla
         if ($request->filled('password_nueva')) {
             $rules['password_actual'] = 'required';
             $rules['password_nueva']  = 'required|min:6|confirmed';
@@ -48,7 +36,6 @@ class PerfilController extends Controller
             'password_nueva.confirmed'   => 'Las contraseñas no coinciden.',
         ]);
 
-        // Verificar contraseña actual si se quiere cambiar
         if ($request->filled('password_nueva')) {
             if (!Hash::check($request->password_actual, $usuario->password)) {
                 return back()
@@ -57,7 +44,6 @@ class PerfilController extends Controller
             }
         }
 
-        // Actualizar datos
         $usuario->nombre = $request->nombre;
         $usuario->email  = $request->email;
 

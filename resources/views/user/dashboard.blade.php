@@ -16,7 +16,6 @@
             min-height: 100vh;
         }
 
-        /* ── NAVBAR ── */
         .navbar {
             background: #FFFFFF;
             border-bottom: 1px solid #E5E7EB;
@@ -97,14 +96,12 @@
         }
         .btn-logout:hover { background: #FEE2E2; border-color: #FECACA; color: #DC2626; }
 
-        /* ── CONTENIDO ── */
         .container {
             max-width: 900px;
             margin: 0 auto;
             padding: 2.5rem 1.5rem;
         }
 
-        /* ── BIENVENIDA ── */
         .welcome {
             margin-bottom: 2rem;
         }
@@ -118,7 +115,6 @@
         .welcome h1 span { color: #15803D; }
         .welcome p { font-size: 0.95rem; color: #6B7280; }
 
-        /* ── STATS ── */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -154,7 +150,6 @@
             color: #9CA3AF;
         }
 
-        /* ── SECCIÓN MÓDULOS ── */
         .section-header {
             display: flex;
             align-items: center;
@@ -168,7 +163,6 @@
             color: #111827;
         }
 
-        /* ── MÓDULO CARD ── */
         .modulo-card {
             background: #FFFFFF;
             border: 1px solid #E5E7EB;
@@ -209,7 +203,6 @@
             border-radius: 40px;
         }
 
-        /* ── BARRA PROGRESO MEJORADA ── */
         .progress-wrap {
             margin-bottom: 1rem;
         }
@@ -224,7 +217,7 @@
             font-weight: 600;
             color: #6B7280;
         }
-        /* PROGRESO VISUAL MEJORADO: muestra X/N lecciones + % */
+    
         .progress-nums {
             font-size: 0.8rem;
             font-weight: 700;
@@ -243,7 +236,6 @@
             transition: width 0.5s ease;
         }
 
-        /* ── LECCIONES LIST ── */
         .lecciones-list {
             background: #F9FAFB;
             border-radius: 14px;
@@ -265,14 +257,11 @@
         }
         .leccion-row:last-child { border-bottom: none; }
 
-        /* COMPLETADA: clickeable normalmente */
         .leccion-row.completada { color: #6B7280; }
         .leccion-row.completada:hover { background: #F0FDF4; }
 
-        /* DISPONIBLE: siguiente a completar */
         .leccion-row.disponible:hover { background: #F0FDF4; }
 
-        /* BLOQUEADA: no clickeable, visual gris con candado */
         .leccion-row.bloqueada {
             cursor: not-allowed;
             opacity: 0.55;
@@ -298,7 +287,6 @@
         .leccion-status { font-size: 0.75rem; font-weight: 600; color: #9CA3AF; }
         .leccion-status.done { color: #15803D; }
 
-        /* ── FOOTER MÓDULO ── */
         .modulo-footer {
             display: flex;
             justify-content: flex-end;
@@ -322,7 +310,6 @@
         }
         .btn-continuar:hover { background: #15803D; color: white; transform: scale(0.97); }
 
-        /* MÓDULO COMPLETADO BADGE */
         .badge-completado {
             display: inline-flex;
             align-items: center;
@@ -336,7 +323,6 @@
             font-weight: 700;
         }
 
-        /* ── BANNER MÓDULO COMPLETADO (si hay flash message) ── */
         .banner-completado {
             background: linear-gradient(135deg, #DCFCE7, #BBF7D0);
             border: 1px solid #4ADE80;
@@ -356,7 +342,6 @@
         }
         .banner-completado p { font-size: 0.875rem; color: #15803D; }
 
-        /* ── PERFIL LINK ── */
         .profile-link {
             display: flex;
             align-items: center;
@@ -370,7 +355,7 @@
         }
         .profile-link:hover { background: #F3F4F6; color: #111827; }
 
-        /* ── RESPONSIVE ── */
+        
         @media (max-width: 640px) {
             .navbar { padding: 0 1rem; }
             .container { padding: 1.5rem 1rem; }
@@ -382,7 +367,6 @@
 </head>
 <body>
 
-    <!-- ── NAVBAR ── -->
     <nav class="navbar">
         <div class="nav-left">
             <div class="logo">Bitlyx</div>
@@ -391,7 +375,7 @@
         </div>
         <div class="nav-right">
             <div class="xp-badge">
-                ⚡ {{ Auth::user()->xp_total ?? 0 }} XP
+                 {{ Auth::user()->xp_total ?? 0 }} XP
             </div>
             @php
                 $nombreCompleto = Auth::user()->nombre ?? Auth::user()->name ?? '';
@@ -406,13 +390,12 @@
         </div>
     </nav>
 
-    <!-- ── CONTENIDO ── -->
     <div class="container">
 
         {{-- BANNER de módulo completado (flash message) --}}
         @if(session('success') && str_contains(session('success'), 'completado'))
         <div class="banner-completado">
-            <div class="banner-icon">🎉</div>
+            <div class="banner-icon"> </div>
             <div>
                 <h3>¡Módulo completado!</h3>
                 <p>{{ session('success') }} Sigue así, vas muy bien.</p>
@@ -420,34 +403,31 @@
         </div>
         @endif
 
-        <!-- BIENVENIDA -->
         <div class="welcome">
             <h1>Bienvenido, <span>{{ Auth::user()->nombre ?? Auth::user()->name }}</span></h1>
             <p>Continúa desde donde lo dejaste.</p>
         </div>
 
-        <!-- ESTADÍSTICAS -->
         <div class="stats-grid">
             <div class="stat-card">
-                <div class="stat-icon">📖</div>
+                <div class="stat-icon"> </div>
                 <div class="stat-num">{{ $leccionesCompletadasGlobal ?? 0 }} / {{ $totalLeccionesGenerales ?? 0 }}</div>
                 <div class="stat-label">Lecciones</div>
             </div>
             <div class="stat-card">
-                <div class="stat-icon">⚡</div>
+                <div class="stat-icon"> </div>
                 <div class="stat-num">{{ Auth::user()->xp_total ?? 0 }}</div>
                 <div class="stat-label">Puntos XP</div>
             </div>
             <div class="stat-card">
-                <div class="stat-icon">🎯</div>
+                <div class="stat-icon"> </div>
                 <div class="stat-num">{{ $porcentajeGlobal ?? 0 }}%</div>
                 <div class="stat-label">Progreso global</div>
             </div>
         </div>
 
-        <!-- MÓDULOS -->
         <div class="section-header">
-            <span>📚</span>
+            <span> </span>
             <h2>Mis módulos</h2>
         </div>
 
@@ -486,7 +466,7 @@
                     <span class="progress-nums">{{ $completadasCount }} / {{ $totalLec }} lecciones · {{ $porcentaje }}%</span>
                 </div>
                 <div class="progress-bar-bg">
-                    <div class="progress-bar-fill" style="width: {{ $porcentaje }}%"></div>
+                    <div class="progress-bar-fill" style="width: {{ $porcentaje }}%"> </div>
                 </div>
             </div>
 
@@ -534,7 +514,7 @@
             {{-- FOOTER: botón continuar o badge completado --}}
             <div class="modulo-footer">
                 @if($moduloCompleto)
-                    <span class="badge-completado">🎉 Módulo completado</span>
+                    <span class="badge-completado"> Módulo completado</span>
                 @elseif($proximaLeccion)
                     <a href="{{ route('leccion.show', $proximaLeccion->id) }}" class="btn-continuar">
                         {{ $completadasCount === 0 ? 'Comenzar' : 'Continuar' }} →

@@ -18,7 +18,6 @@
             flex-direction: column;
         }
 
-        /* ── NAVBAR ── */
         .navbar {
             background: #FFFFFF;
             border-bottom: 1px solid #E5E7EB;
@@ -72,7 +71,6 @@
             border: 1px solid #BBF7D0;
         }
 
-        /* BARRA PROGRESO DEL MÓDULO (delgada, verde) */
         .module-progress-bar {
             height: 4px;
             background: #E5E7EB;
@@ -83,7 +81,6 @@
             transition: width 0.5s ease;
         }
 
-        /* ── MAIN ── */
         .main {
             flex: 1;
             display: flex;
@@ -101,7 +98,6 @@
             box-shadow: 0 1px 4px rgba(0,0,0,0.04);
         }
 
-        /* ── ENCABEZADO ── */
         .leccion-head {
             display: flex;
             justify-content: space-between;
@@ -132,7 +128,6 @@
             white-space: nowrap;
         }
 
-        /* ── CONTENIDO ── */
         .leccion-body {
             background: #F9FAFB;
             border: 1px solid #E5E7EB;
@@ -144,7 +139,6 @@
             color: #374151;
         }
 
-        /* ── PROGRESO VISUAL MEJORADO ── */
         .progreso-modulo {
             margin-bottom: 1.5rem;
         }
@@ -159,7 +153,7 @@
             color: #6B7280;
             font-weight: 500;
         }
-        /* Indicador numérico: X/N lecciones */
+        
         .progreso-nums {
             font-size: 0.8rem;
             font-weight: 700;
@@ -178,7 +172,6 @@
             transition: width 0.5s ease;
         }
 
-        /* ── BOTONES DE NAVEGACIÓN ── */
         .nav-buttons {
             display: flex;
             align-items: center;
@@ -256,7 +249,6 @@
 
         .placeholder { min-width: 120px; }
 
-        /* ── RESPONSIVE ── */
         @media (max-width: 640px) {
             .navbar { padding: 0 1rem; }
             .main { padding: 1.5rem 1rem; }
@@ -269,7 +261,6 @@
 </head>
 <body>
 
-    <!-- ── NAVBAR CON NAVEGACIÓN MEJORADA ── -->
     <nav class="navbar">
         <div class="nav-left">
             {{-- Botón volver al dashboard --}}
@@ -287,36 +278,31 @@
             </div>
         </div>
         <div class="nav-right">
-            <div class="xp-badge">⚡ {{ $usuario->xp_total ?? 0 }} XP</div>
+            <div class="xp-badge"> {{ $usuario->xp_total ?? 0 }} XP</div>
         </div>
     </nav>
 
-    <!-- BARRA DE PROGRESO DEL MÓDULO -->
     <div class="module-progress-bar">
         <div class="module-progress-fill" style="width: {{ $porcentajeModulo }}%"></div>
     </div>
 
-    <!-- ── CONTENIDO ── -->
     <div class="main">
         <div class="leccion-card">
 
-            <!-- ENCABEZADO -->
             <div class="leccion-head">
                 <h1>{{ $leccion->titulo }}</h1>
                 @if($progreso && $progreso->completada)
-                    <span class="badge-completada">✓ Completada</span>
+                    <span class="badge-completada"> Completada</span>
                 @endif
             </div>
 
-            <!-- CONTENIDO DE LA LECCIÓN -->
             <div class="leccion-body">
                 {!! nl2br(e($leccion->contenido)) !!}
             </div>
 
-            <!-- PROGRESO VISUAL MEJORADO: X/N lecciones completadas -->
             <div class="progreso-modulo">
                 <div class="progreso-header">
-                    <span class="progreso-texto">Progreso del módulo</span>
+                    <span class="progreso-texto"> Progreso del módulo</span>
                     <span class="progreso-nums">{{ $leccionesCompletadas }} / {{ $leccionesDelModulo->count() }} lecciones completadas</span>
                 </div>
                 <div class="progress-bar-bg">
@@ -324,13 +310,12 @@
                 </div>
             </div>
 
-            <!-- BOTONES DE NAVEGACIÓN -->
             <div class="nav-buttons">
 
                 {{-- BOTÓN ANTERIOR --}}
                 @if($anterior)
                     <a href="{{ route('leccion.show', $anterior->id) }}" class="btn-nav btn-anterior">
-                        ← Anterior
+                         Anterior
                     </a>
                 @else
                     <div class="placeholder"></div>
@@ -342,13 +327,13 @@
                         <form method="POST" action="{{ route('leccion.completar', $leccion->id) }}" style="margin:0">
                             @csrf
                             <button type="submit" class="btn-nav btn-completar">
-                                ✓ Marcar como completada
+                                 Marcar como completada
                             </button>
                         </form>
                     @else
-                        <span class="ya-completada">✓ Completada</span>
+                        <span class="ya-completada"> Completada</span>
                         <a href="{{ route('quiz.show', $leccion->id) }}" class="btn-quiz">
-                            ⚡ Ir al Quiz
+                             Ir al Quiz
                         </a>
                     @endif
                 </div>
@@ -356,7 +341,7 @@
                 {{-- BOTÓN SIGUIENTE --}}
                 @if($siguiente)
                     <a href="{{ route('leccion.show', $siguiente->id) }}" class="btn-nav btn-siguiente">
-                        Siguiente →
+                        Siguiente 
                     </a>
                 @else
                     <div class="placeholder"></div>

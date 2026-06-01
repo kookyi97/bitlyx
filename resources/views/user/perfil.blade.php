@@ -16,7 +16,6 @@
             min-height: 100vh;
         }
 
-        /* ── NAVBAR ── */
         .navbar {
             background: #FFFFFF;
             border-bottom: 1px solid #E5E7EB;
@@ -65,7 +64,6 @@
         }
         .btn-volver:hover { background: #F3F4F6; color: #111827; }
 
-        /* ── CONTENIDO ── */
         .container {
             max-width: 600px;
             margin: 0 auto;
@@ -82,7 +80,6 @@
         }
         .page-header p { font-size: 0.9rem; color: #6B7280; }
 
-        /* ── CARD FORMULARIO ── */
         .profile-card {
             background: #FFFFFF;
             border: 1px solid #E5E7EB;
@@ -91,7 +88,6 @@
             box-shadow: 0 1px 4px rgba(0,0,0,0.04);
         }
 
-        /* Avatar grande */
         .avatar-section {
             display: flex;
             align-items: center;
@@ -122,7 +118,6 @@
         }
         .avatar-info p { font-size: 0.85rem; color: #6B7280; }
 
-        /* Campos del formulario */
         .form-group { margin-bottom: 1.25rem; }
         .form-group label {
             display: block;
@@ -153,7 +148,6 @@
 
         .form-hint { font-size: 0.78rem; color: #9CA3AF; margin-top: 0.3rem; }
 
-        /* Separador */
         .form-divider {
             border: none;
             border-top: 1px solid #F3F4F6;
@@ -167,7 +161,6 @@
             margin-bottom: 1rem;
         }
 
-        /* Alertas */
         .alert {
             padding: 0.75rem 1rem;
             border-radius: 10px;
@@ -181,11 +174,9 @@
         .alert-success { background: #DCFCE7; color: #15803D; border: 1px solid #BBF7D0; }
         .alert-error   { background: #FEF2F2; color: #DC2626; border: 1px solid #FECACA; }
 
-        /* Error por campo */
         .field-error { font-size: 0.78rem; color: #DC2626; margin-top: 0.3rem; }
         .form-input.error { border-color: #FCA5A5; }
 
-        /* Botón guardar */
         .btn-guardar {
             width: 100%;
             padding: 0.8rem;
@@ -219,7 +210,7 @@
         </div>
         <div>
             <a href="{{ route('user.dashboard') }}" class="btn-volver">
-                ← Volver al inicio
+                 Volver al inicio
             </a>
         </div>
     </nav>
@@ -239,15 +230,14 @@
 
         {{-- Mensajes de éxito/error --}}
         @if(session('success'))
-            <div class="alert alert-success">✓ {{ session('success') }}</div>
+            <div class="alert alert-success"> {{ session('success') }}</div>
         @endif
         @if(session('error'))
-            <div class="alert alert-error">✗ {{ session('error') }}</div>
+            <div class="alert alert-error"> {{ session('error') }}</div>
         @endif
 
         <div class="profile-card">
 
-            <!-- Avatar -->
             <div class="avatar-section">
                 <div class="avatar-lg">{{ $iniciales }}</div>
                 <div class="avatar-info">
@@ -319,7 +309,7 @@
                         class="form-input {{ $errors->has('password_nueva') ? 'error' : '' }}"
                         placeholder="••••••••"
                     >
-                    <div class="form-hint">Mínimo 6 caracteres. Déjalo en blanco si no quieres cambiarla.</div>
+                    <div class="form-hint">Mínimo 8 caracteres. Déjalo en blanco si no quieres cambiarla.</div>
                     @error('password_nueva')
                         <div class="field-error">{{ $message }}</div>
                     @enderror
