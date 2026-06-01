@@ -77,3 +77,12 @@ Route::middleware(['auth', 'rol:usuario', 'no.cache'])->group(function () {
     Route::post('/quiz/guardar', [QuizController::class, 'guardar'])->name('quiz.guardar');
     Route::get('/quiz/{leccion_id}/resultado', [QuizController::class, 'resultado'])->name('quiz.resultado');
 });
+
+// Perfil del usuario
+Route::get('/user/perfil', [\App\Http\Controllers\PerfilController::class, 'show'])
+    ->middleware(['auth', 'rol:usuario'])
+    ->name('user.perfil');
+
+Route::put('/user/perfil', [\App\Http\Controllers\PerfilController::class, 'update'])
+    ->middleware(['auth', 'rol:usuario'])
+    ->name('user.perfil.update');
