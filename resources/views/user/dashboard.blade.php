@@ -346,7 +346,6 @@
             </div>
         </div>
 
-        <!-- Módulos disponibles (exactamente la misma lógica de foreach) -->
         <div class="section-title">Mis módulos</div>
 
         @foreach($modulos as $modulo)
