@@ -26,7 +26,17 @@
     }
     .trophy { font-size: 64px; margin-bottom: 16px; }
     h1 { font-size: 26px; font-weight: 700; color: #0f172a; margin-bottom: 6px; }
-    .sub { font-size: 14px; color: #64748b; margin-bottom: 36px; }
+    .sub { font-size: 14px; color: #64748b; margin-bottom: 8px; }
+    .mejoro-badge {
+      display: inline-block;
+      background: #dcfce7;
+      color: #14532d;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 24px;
+    }
     .stats-row {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -67,6 +77,7 @@
       font-weight: 600;
       text-decoration: none;
       margin-bottom: 10px;
+      cursor: pointer;
     }
     .btn-secondary {
       display: block;
@@ -79,7 +90,11 @@
       font-size: 15px;
       font-weight: 500;
       text-decoration: none;
+      margin-bottom: 10px;
+      cursor: pointer;
     }
+    .btn-secondary:hover { background: #f8fafc; }
+    .btn-primary:hover { background: #1e293b; }
   </style>
 </head>
 <body>
@@ -87,6 +102,10 @@
     <div class="trophy">🏆</div>
     <h1>¡Quiz completado!</h1>
     <p class="sub">{{ $leccion->titulo }}</p>
+
+    @if(!empty($datos['mejoro']))
+      <span class="mejoro-badge">⬆ ¡Mejoraste tu puntaje!</span>
+    @endif
 
     <div class="stats-row">
       <div class="stat">
@@ -108,7 +127,20 @@
     </div>
 
     <a href="{{ route('user.dashboard') }}" class="btn-primary">Volver al dashboard →</a>
-    <a href="{{ route('leccion.show', $datos['leccion_id']) }}" class="btn-secondary">Ver la lección</a>
+
+    @if($tieneRevision)
+      <a href="{{ route('quiz.revision', $datos['leccion_id']) }}" class="btn-secondary">
+        📋 Ver revisión de respuestas
+      </a>
+    @endif
+
+    <a href="{{ route('quiz.reintentar', $datos['leccion_id']) }}" class="btn-secondary">
+      🔄 Reintentar quiz
+    </a>
+
+    <a href="{{ route('quiz.historial') }}" class="btn-secondary">
+      📊 Ver mi historial
+    </a>
   </div>
 </body>
 </html>

@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\PreguntaController;
 use App\Http\Controllers\Admin\UsuarioController;
 use App\Http\Controllers\Admin\ResultadoQuizController;
 use App\Http\Controllers\QuizController;
+use App\Http\Controllers\HistorialController;
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -86,3 +87,10 @@ Route::get('/user/perfil', [\App\Http\Controllers\PerfilController::class, 'show
 Route::put('/user/perfil', [\App\Http\Controllers\PerfilController::class, 'update'])
     ->middleware(['auth', 'rol:usuario'])
     ->name('user.perfil.update');
+    
+    Route::middleware(['auth', 'rol:usuario', 'no.cache'])->group(function () {
+    Route::get('/historial',                       [HistorialController::class, 'historial'])->name('quiz.historial');
+    Route::get('/leaderboard',                     [HistorialController::class, 'leaderboard'])->name('quiz.leaderboard');
+    Route::get('/quiz/{leccion_id}/revision',      [QuizController::class, 'revision'])->name('quiz.revision');
+    Route::get('/quiz/{leccion_id}/reintentar',    [QuizController::class, 'reintentar'])->name('quiz.reintentar');
+});

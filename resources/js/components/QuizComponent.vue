@@ -84,17 +84,18 @@
 <script setup>
 import { ref, computed } from 'vue'
 
-const el       = document.getElementById('quiz-app')
-const preguntas = JSON.parse(el.dataset.preguntas)
-const leccion  = JSON.parse(el.dataset.leccion)
-const usuario  = JSON.parse(el.dataset.usuario)
-const csrf     = document.querySelector('meta[name="csrf-token"]')?.content || ''
+const el        = document.getElementById('quiz-app')
+const preguntas  = JSON.parse(el.dataset.preguntas)
+const leccion    = JSON.parse(el.dataset.leccion)
+const usuario    = JSON.parse(el.dataset.usuario)
+const csrf       = document.querySelector('meta[name="csrf-token"]')?.content || ''
 
-const actual             = ref(0)
-const opcionSeleccionada = ref(null)
-const respondida         = ref(false)
-const esCorrecta         = ref(false)
-const puntaje            = ref({ correctas: 0, xp: 0 })
+const actual              = ref(0)
+const opcionSeleccionada  = ref(null)
+const respondida          = ref(false)
+const esCorrecta          = ref(false)
+const puntaje             = ref({ correctas: 0, xp: 0 })
+const respuestas          = ref([]) // para la vista de revisión
 
 const preguntaActual = computed(() => preguntas[actual.value])
 const opcionCorrecta = computed(() => preguntaActual.value.opciones.find(o => o.es_correcta))
@@ -117,10 +118,18 @@ function confirmar() {
   if (!opcionSeleccionada.value) return
   respondida.value = true
   esCorrecta.value = opcionSeleccionada.value.es_correcta
+
   if (esCorrecta.value) {
     puntaje.value.correctas++
     puntaje.value.xp += preguntaActual.value.xp
   }
+
+  // Guardar respuesta para revisión
+  respuestas.value.push({
+    pregunta_id:          preguntaActual.value.id,
+    opcion_seleccionada_id: opcionSeleccionada.value.id,
+    es_correcta:          opcionSeleccionada.value.es_correcta,
+  })
 }
 
 function siguiente() {
@@ -142,6 +151,7 @@ async function finalizar() {
       correctas:  puntaje.value.correctas,
       total:      preguntas.length,
       xp_ganado:  puntaje.value.xp,
+      respuestas: respuestas.value,
     }),
   })
   const data = await res.json()
@@ -259,7 +269,6 @@ async function finalizar() {
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.15s;
 }
 .btn-confirmar:disabled { opacity: 0.4; cursor: not-allowed; }
 .btn-confirmar:not(:disabled):hover { background: #1e293b; }
