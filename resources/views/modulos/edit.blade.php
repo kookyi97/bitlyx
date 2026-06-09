@@ -6,7 +6,7 @@
         body { font-family: Arial; padding: 20px; }
         .form-group { margin-bottom: 15px; }
         label { display: block; margin-bottom: 5px; font-weight: bold; }
-        input[type="text"], textarea { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 3px; }
+        input[type="text"], textarea, select { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 3px; }
         button { background: #2196F3; color: white; padding: 10px 20px; border: none; cursor: pointer; border-radius: 3px; }
         .cancelar { margin-left: 10px; color: #999; text-decoration: none; }
     </style>
@@ -14,21 +14,29 @@
 <body>
     <a href="/admin/dashboard" style="background: #2c3e50; color: white; padding: 8px 16px; text-decoration: none; border-radius: 5px; display: inline-block; margin-bottom: 20px;">🏠 Volver al Dashboard</a>
     <h1>Editar Módulo</h1>
-    
+
     <form action="/modulos/{{ $modulo->id }}" method="POST">
         @csrf
         @method('PUT')
-        
+
         <div class="form-group">
             <label>Título:</label>
-            <input type="text" name="titulo" value="{{ $modulo->titulo }}" required>
+            <input type="text" name="titulo" value="{{ old('titulo', $modulo->titulo) }}" required maxlength="150">
         </div>
-        
+
         <div class="form-group">
             <label>Descripción:</label>
-            <textarea name="descripcion" rows="5">{{ $modulo->descripcion }}</textarea>
+            <textarea name="descripcion" rows="5">{{ old('descripcion', $modulo->descripcion) }}</textarea>
         </div>
-        
+
+        <div class="form-group">
+            <label>Estado:</label>
+            <select name="estado">
+                <option value="borrador"  {{ old('estado', $modulo->estado) === 'borrador'  ? 'selected' : '' }}>Borrador</option>
+                <option value="publicado" {{ old('estado', $modulo->estado) === 'publicado' ? 'selected' : '' }}>Publicado</option>
+            </select>
+        </div>
+
         <button type="submit">Actualizar</button>
         <a href="/modulos" class="cancelar">Cancelar</a>
     </form>

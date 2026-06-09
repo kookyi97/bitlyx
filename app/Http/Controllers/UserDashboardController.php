@@ -10,7 +10,8 @@ class UserDashboardController extends Controller
 {
     public function index()
     {
-        $modulos = Modulo::with('lecciones')->get();
+        // Unificamos el filtro 'publicado' junto con la carga de la relación lecciones
+        $modulos = Modulo::where('estado', 'publicado')->with('lecciones')->get();       
         $usuario = Auth::user();
         
         $totalLeccionesGenerales = 0;

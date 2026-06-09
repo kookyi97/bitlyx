@@ -355,7 +355,6 @@
         }
         .profile-link:hover { background: #F3F4F6; color: #111827; }
 
-        
         @media (max-width: 640px) {
             .navbar { padding: 0 1rem; }
             .container { padding: 1.5rem 1rem; }
@@ -395,7 +394,7 @@
         {{-- BANNER de módulo completado (flash message) --}}
         @if(session('success') && str_contains(session('success'), 'completado'))
         <div class="banner-completado">
-            <div class="banner-icon"> </div>
+            <div class="banner-icon"></div>
             <div>
                 <h3>¡Módulo completado!</h3>
                 <p>{{ session('success') }} Sigue así, vas muy bien.</p>
@@ -410,24 +409,24 @@
 
         <div class="stats-grid">
             <div class="stat-card">
-                <div class="stat-icon"> </div>
+                <div class="stat-icon"></div>
                 <div class="stat-num">{{ $leccionesCompletadasGlobal ?? 0 }} / {{ $totalLeccionesGenerales ?? 0 }}</div>
                 <div class="stat-label">Lecciones</div>
             </div>
             <div class="stat-card">
-                <div class="stat-icon"> </div>
+                <div class="stat-icon"></div>
                 <div class="stat-num">{{ Auth::user()->xp_total ?? 0 }}</div>
                 <div class="stat-label">Puntos XP</div>
             </div>
             <div class="stat-card">
-                <div class="stat-icon"> </div>
+                <div class="stat-icon"></div>
                 <div class="stat-num">{{ $porcentajeGlobal ?? 0 }}%</div>
                 <div class="stat-label">Progreso global</div>
             </div>
         </div>
 
         <div class="section-header">
-            <span> </span>
+            <span></span>
             <h2>Mis módulos</h2>
         </div>
 
@@ -459,7 +458,7 @@
                 </div>
             </div>
 
-            {{-- PROGRESO VISUAL MEJORADO: barra + X/N lecciones + % --}}
+            {{-- PROGRESO VISUAL MEJORADO --}}
             <div class="progress-wrap">
                 <div class="progress-header">
                     <span class="progress-label-text">Progreso del módulo</span>
@@ -476,9 +475,6 @@
                 @php
                     $estaCompletada = isset($completadasMap[$leccion->id]) && $completadasMap[$leccion->id];
 
-                    // Una lección está disponible si:
-                    // - Es la primera (índice 0), o
-                    // - La lección anterior está completada
                     $leccionAnterior = $modulo->lecciones->sortBy('orden')->values()->get($index - 1);
                     $anteriorCompletada = $index === 0 ||
                         ($leccionAnterior && isset($completadasMap[$leccionAnterior->id]) && $completadasMap[$leccionAnterior->id]);
@@ -487,21 +483,18 @@
                 @endphp
 
                 @if($estaCompletada)
-                    {{-- COMPLETADA: puede volver a verla --}}
                     <a href="{{ route('leccion.show', $leccion->id) }}" class="leccion-row completada">
                         <div class="leccion-icon done">✓</div>
                         <span class="leccion-titulo">{{ $leccion->titulo }}</span>
                         <span class="leccion-status done">Completada</span>
                     </a>
                 @elseif($bloqueada)
-                    {{-- BLOQUEADA: no clickeable --}}
                     <div class="leccion-row bloqueada">
-                        <div class="leccion-icon locked">🔒</div>
+                        <div class="leccion-icon locked"></div>
                         <span class="leccion-titulo">{{ $leccion->titulo }}</span>
                         <span class="leccion-status">Bloqueada</span>
                     </div>
                 @else
-                    {{-- DISPONIBLE: siguiente a completar --}}
                     <a href="{{ route('leccion.show', $leccion->id) }}" class="leccion-row disponible">
                         <div class="leccion-icon next">{{ $leccion->orden }}</div>
                         <span class="leccion-titulo">{{ $leccion->titulo }}</span>
@@ -511,10 +504,10 @@
                 @endforeach
             </div>
 
-            {{-- FOOTER: botón continuar o badge completado --}}
+            {{-- FOOTER --}}
             <div class="modulo-footer">
                 @if($moduloCompleto)
-                    <span class="badge-completado"> Módulo completado</span>
+                    <span class="badge-completado">Módulo completado</span>
                 @elseif($proximaLeccion)
                     <a href="{{ route('leccion.show', $proximaLeccion->id) }}" class="btn-continuar">
                         {{ $completadasCount === 0 ? 'Comenzar' : 'Continuar' }} →

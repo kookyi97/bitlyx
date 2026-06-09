@@ -6,7 +6,7 @@
         body { font-family: Arial; padding: 20px; }
         .form-group { margin-bottom: 15px; }
         label { display: block; margin-bottom: 5px; font-weight: bold; }
-        input[type="text"], textarea { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 3px; }
+        input[type="text"], textarea, select { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 3px; }
         button { background: #4CAF50; color: white; padding: 10px 20px; border: none; cursor: pointer; border-radius: 3px; }
         .cancelar { margin-left: 10px; color: #999; text-decoration: none; }
     </style>
@@ -14,20 +14,28 @@
 <body>
     <a href="/admin/dashboard" style="background: #2c3e50; color: white; padding: 8px 16px; text-decoration: none; border-radius: 5px; display: inline-block; margin-bottom: 20px;">🏠 Volver al Dashboard</a>
     <h1>Crear Nuevo Módulo</h1>
-    
+
     <form action="/modulos" method="POST">
         @csrf
-        
+
         <div class="form-group">
             <label>Título:</label>
-            <input type="text" name="titulo" required maxlength="150">
+            <input type="text" name="titulo" required maxlength="150" value="{{ old('titulo') }}">
         </div>
-        
+
         <div class="form-group">
             <label>Descripción:</label>
-            <textarea name="descripcion" rows="5"></textarea>
+            <textarea name="descripcion" rows="5">{{ old('descripcion') }}</textarea>
         </div>
-        
+
+        <div class="form-group">
+            <label>Estado:</label>
+            <select name="estado">
+                <option value="borrador"  {{ old('estado', 'borrador') === 'borrador'  ? 'selected' : '' }}>Borrador</option>
+                <option value="publicado" {{ old('estado', 'borrador') === 'publicado' ? 'selected' : '' }}>Publicado</option>
+            </select>
+        </div>
+
         <button type="submit">Guardar</button>
         <a href="/modulos" class="cancelar">Cancelar</a>
     </form>

@@ -72,6 +72,8 @@ Route::middleware(['auth', 'rol:admin'])->prefix('admin')->group(function () {
     Route::get('/resultados-quiz', [ResultadoQuizController::class, 'index'])->name('admin.resultados_quiz.index');
 });
 
+Route::patch('modulos/{modulo}/toggle-estado', [ModuloController::class, 'toggleEstado'])->name('modulos.toggleEstado');
+
 // Rutas de Quiz (usuario)
 Route::middleware(['auth', 'rol:usuario', 'no.cache'])->group(function () {
     Route::get('/quiz/{leccion_id}', [QuizController::class, 'show'])->name('quiz.show');

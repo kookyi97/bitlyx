@@ -12,7 +12,7 @@ class Modulo extends Model
     public $timestamps = false;  // ← DESACTIVA TIMESTAMPS
 
     protected $table = 'modulos';
-    protected $fillable = ['titulo', 'descripcion'];
+    protected $fillable = ['titulo', 'descripcion', 'estado'];
 
     public function lecciones()
     {

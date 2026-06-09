@@ -9,9 +9,11 @@ return new class extends Migration
     public function up()
     {
         Schema::table('usuarios', function (Blueprint $table) {
-            $table->boolean('activo')->default(1)->after('xp_total');
-        });
-    }
+            if (!Schema::hasColumn('usuarios', 'activo')) {
+            $table->boolean('activo')->default(true)->after('xp_total');
+        }
+    });
+}
 
     public function down()
     {
