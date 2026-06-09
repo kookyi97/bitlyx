@@ -6,12 +6,12 @@ Bitlyx Academy es un sistema web educativo desarrollado con Laravel y MySQL que 
 
 ---
 
-## Informacion del Proyecto
+Informacion del Proyecto
 
-| Materia | Programacion Computacional IV |
-| Docente | Ing. William Montes |
-| Grupo | Ingenieria en Sistemas y Redes Informaticas - Ciclo V - Grupo B2 |
-| Año | 2026 |
+- Materia: Programacion Computacional IV
+- Docente: Ing. William Montes
+- Grupo: Ingenieria en Sistemas y Redes Informaticas - Ciclo V - Grupo B2
+- Año: 2026
 
 ---
 
