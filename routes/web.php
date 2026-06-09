@@ -22,6 +22,18 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
 
+Route::get('/recuperar-contrasena', [\App\Http\Controllers\RecuperarContrasenaController::class, 'showSolicitarForm'])
+    ->name('recuperar.form');
+
+Route::post('/recuperar-contrasena', [\App\Http\Controllers\RecuperarContrasenaController::class, 'enviarEnlace'])
+    ->name('recuperar.enviar');
+
+Route::get('/recuperar-contrasena/reset/{token}', [\App\Http\Controllers\RecuperarContrasenaController::class, 'showResetForm'])
+    ->name('recuperar.reset.form');
+
+Route::post('/recuperar-contrasena/reset', [\App\Http\Controllers\RecuperarContrasenaController::class, 'resetear'])
+    ->name('recuperar.resetear');
+
 // CRUD de Módulos (DEBE IR ANTES QUE EL DASHBOARD)
 Route::get('/modulos', [ModuloController::class, 'index'])->name('modulos.index');
 Route::get('/modulos/create', [ModuloController::class, 'create'])->name('modulos.create');

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3307
--- Tiempo de generación: 01-06-2026 a las 03:40:03
+-- Tiempo de generación: 09-06-2026 a las 22:53:45
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -86,7 +86,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (1, '2014_10_12_000000_create_users_table', 1),
 (2, '2014_10_12_100000_create_password_resets_table', 1),
 (3, '2019_08_19_000000_create_failed_jobs_table', 1),
-(4, '2019_12_14_000001_create_personal_access_tokens_table', 1);
+(4, '2019_12_14_000001_create_personal_access_tokens_table', 1),
+(5, '2026_05_31_200808_add_activo_to_usuarios_table', 2),
+(6, '2026_06_09_161640_add_estado_to_modulos_table', 2);
 
 -- --------------------------------------------------------
 
@@ -98,17 +100,21 @@ CREATE TABLE `modulos` (
   `id` int(11) NOT NULL,
   `titulo` varchar(150) NOT NULL,
   `descripcion` text DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `estado` varchar(255) NOT NULL DEFAULT 'borrador'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `modulos`
 --
 
-INSERT INTO `modulos` (`id`, `titulo`, `descripcion`, `created_at`) VALUES
-(1, 'Introducción a PHP', 'Conceptos básicos del lenguaje PHP', '2026-05-16 23:07:22'),
-(2, 'Bases de Datos', 'Fundamentos de SQL', '2026-05-31 23:41:55'),
-(3, 'Laravel', 'Framework PHP moderno', '2026-05-31 23:41:55');
+INSERT INTO `modulos` (`id`, `titulo`, `descripcion`, `created_at`, `estado`) VALUES
+(1, 'Introducción a PHP', 'Conceptos básicos del lenguaje PHP', '2026-05-16 23:07:22', 'publicado'),
+(2, 'Bases de Datos', 'Fundamentos de SQL', '2026-05-31 23:41:55', 'publicado'),
+(3, 'Laravel', 'Framework PHP moderno', '2026-05-31 23:41:55', 'publicado'),
+(4, 'Programación Orientada a Objetos (POO)', 'Clases, objetos, herencia y polimorfismo en PHP.', '2026-06-09 16:55:25', 'publicado'),
+(5, 'API RESTful con Laravel', 'Creación de rutas, controladores de API y respuestas JSON.', '2026-06-09 16:55:25', 'publicado'),
+(6, 'Autenticación y Seguridad', 'Implementación de Middleware, validación de roles y protección de rutas.', '2026-06-09 16:55:25', 'borrador');
 
 -- --------------------------------------------------------
 
@@ -203,6 +209,15 @@ CREATE TABLE `progreso_usuario` (
   `fecha` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `progreso_usuario`
+--
+
+INSERT INTO `progreso_usuario` (`id`, `usuario_id`, `leccion_id`, `completada`, `fecha`) VALUES
+(1, 4, 2, 1, '2026-06-09 16:07:37'),
+(2, 4, 3, 1, '2026-06-09 16:07:40'),
+(3, 2, 3, 1, '2026-06-09 17:20:50');
+
 -- --------------------------------------------------------
 
 --
@@ -279,7 +294,7 @@ CREATE TABLE `usuarios` (
 INSERT INTO `usuarios` (`id`, `nombre`, `email`, `password`, `rol_id`, `xp_total`, `created_at`, `activo`) VALUES
 (1, 'Admin Bitlyx', 'admin@bitlyx.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 1, 0, '2026-05-16 23:07:22', 1),
 (2, 'Juan Pérez', 'juan@bitlyx.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 2, 0, '2026-05-16 23:07:22', 1),
-(3, 'Carlos Mendoza', 'carlos@bitlyx.com', '1111111111', 2, 0, '2026-05-16 23:07:22', 0);
+(4, 'Yisel Aguilar', 'cruzyisel91@gmail.com', '$2y$10$JdAkxVYCG99ug8/.0g49LOPanaT8OfgIOSKqy1cYtEDYkm8sHs7l2', 2, 0, '2026-05-31 22:46:29', 0);
 
 --
 -- Índices para tablas volcadas
@@ -396,13 +411,13 @@ ALTER TABLE `lecciones`
 -- AUTO_INCREMENT de la tabla `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `modulos`
 --
 ALTER TABLE `modulos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `opciones`
@@ -426,7 +441,7 @@ ALTER TABLE `preguntas`
 -- AUTO_INCREMENT de la tabla `progreso_usuario`
 --
 ALTER TABLE `progreso_usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `resultados_quiz`
@@ -450,7 +465,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Restricciones para tablas volcadas

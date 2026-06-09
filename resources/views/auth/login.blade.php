@@ -470,6 +470,11 @@
                         <span class="field-error"> {{ $message }}</span>
                     @enderror
                 </div>
+                <a href="{{ route('recuperar.form') }}" 
+                style="font-size:0.8rem; color:#15803D; text-decoration:none; display:block; text-align:right; margin-top:4px;">
+                ¿Olvidaste tu contraseña?
+                </a>
+
 
                 <button type="submit" class="btn-login">Iniciar Sesión</button>
 
