@@ -22,103 +22,11 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        .app-wrapper {
-            display: flex;
-            min-height: 100vh;
-        }
-
-        /* ========= SIDEBAR MINIMALISTA ========= */
-        .sidebar {
-            width: 280px;
-            background-color: #FFFFFF;
-            border-right: 1px solid #E5E7EB;
-            padding: 2rem 1.5rem;
-            position: sticky;
-            top: 0;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            z-index: 10;
-        }
-
-        .logo-area {
-            margin-bottom: 2.5rem;
-        }
-
-        .logo-bitlyx {
-            font-family: 'Nunito', sans-serif;
-            font-weight: 800;
-            font-size: 1.8rem;
-            background: linear-gradient(135deg, #15803D 0%, #4ADE80 100%);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-        }
-
-        .logo-academy {
-            font-family: 'Nunito', sans-serif;
-            font-weight: 600;
-            font-size: 1rem;
-            color: #6B7280;
-            margin-left: 4px;
-        }
-
-        .nav-menu {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .nav-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 0.75rem 1rem;
-            border-radius: 12px;
-            color: #4B5563;
-            font-weight: 500;
-            transition: all 0.2s;
-            text-decoration: none;
-            font-size: 0.95rem;
-        }
-
-        .nav-item i {
-            width: 22px;
-            font-size: 1.2rem;
-            color: #9CA3AF;
-        }
-
-        .nav-item:hover {
-            background-color: #F3F4F6;
-            color: #15803D;
-        }
-        
-        .nav-item:hover i {
-            color: #4ADE80;
-        }
-
-        .nav-item.active {
-            background-color: #E8F5E9;
-            color: #15803D;
-            font-weight: 600;
-        }
-        
-        .nav-item.active i {
-            color: #4ADE80;
-        }
-
-        .logout-sidebar {
-            margin-top: 2rem;
-            border-top: 1px solid #E5E7EB;
-            padding-top: 1.5rem;
-        }
-
-        /* ========= MAIN CONTENT CONTAINER ========= */
+        /* ========= MAIN CONTENT FULL WIDTH ========= */
         .main-content {
-            flex: 1;
+            width: 100%;
             padding: 2rem;
-            max-width: calc(100% - 280px);
+            min-height: 100vh;
         }
 
         .container {
@@ -163,7 +71,7 @@
             font-family: 'Nunito', sans-serif;
             font-size: 1.8rem;
             font-weight: 700;
-            margin-bottom: 1.5rem;
+            color: #111827;
         }
 
         .alert {
@@ -258,6 +166,7 @@
             display: flex;
             gap: 8px;
             align-items: center;
+            flex-wrap: wrap;
         }
 
         .btn-info {
@@ -398,28 +307,6 @@
             transform: translateY(-1px);
         }
 
-        /* Logout flotante */
-        .logout-float {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #4ADE80;
-            color: #064E3B;
-            padding: 8px 16px;
-            border-radius: 40px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.85rem;
-            z-index: 1000;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            transition: all 0.2s;
-        }
-
-        .logout-float:hover {
-            background: #15803D;
-            color: white;
-        }
-
         /* Paginación */
         .pagination-wrapper {
             margin-top: 2rem;
@@ -460,7 +347,7 @@
         @media (max-width: 1024px) {
             .btn-actions {
                 display: grid;
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
                 gap: 6px;
             }
             .btn-actions form {
@@ -474,168 +361,140 @@
         }
 
         @media (max-width: 768px) {
-            .app-wrapper {
-                flex-direction: column;
-            }
-            .sidebar {
-                width: 100%;
-                height: auto;
-                position: relative;
-                padding: 1rem;
-                border-right: none;
-                border-bottom: 1px solid #E5E7EB;
-            }
             .main-content {
-                max-width: 100%;
                 padding: 1.5rem 1rem;
             }
-            th, td { padding: 0.75rem 1rem; }
-            .header-bar { flex-direction: column; align-items: flex-start; }
-            .btn-admin { width: 100%; justify-content: center; }
-            .logout-float {
-                top: auto;
-                bottom: 20px;
-                right: 20px;
+            th, td { 
+                padding: 0.75rem 1rem; 
+            }
+            .header-bar { 
+                flex-direction: column; 
+                align-items: flex-start; 
+            }
+            .btn-admin { 
+                width: 100%; 
+                justify-content: center; 
+            }
+            .page-title {
+                font-size: 1.5rem;
             }
         }
     </style>
 </head>
 <body>
-
-    <a href="{{ route('logout') }}" class="logout-float" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-        <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
-    </a>
+    <!-- Formulario oculto para logout (sin botón visible) -->
     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
         @csrf
     </form>
 
-    <div class="app-wrapper">
-        <aside class="sidebar">
-            <div class="logo-area">
-                <span class="logo-bitlyx">Bitlyx</span>
-                <span class="logo-academy">Academy</span>
-            </div>
-            <div class="nav-menu">
-                <a href="/admin/dashboard" class="nav-item">
-                    <i class="fas fa-tachometer-alt"></i> <span>Dashboard</span>
-                </a>
-                <a href="/modulos" class="nav-item active">
-                    <i class="fas fa-folder-tree"></i> <span>Módulos</span>
-                </a>
-            </div>
-            <div class="logout-sidebar">
-                <a href="{{ route('logout') }}" class="nav-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                    <i class="fas fa-sign-out-alt"></i> <span>Cerrar Sesión</span>
-                </a>
-            </div>
-        </aside>
+    <main class="main-content">
+        <div class="container">
 
-        <main class="main-content">
-            <div class="container">
+            <div class="header-bar">
+                <h1 class="page-title">
+                    <i class="fas fa-folder-tree" style="color: #4ADE80; margin-right: 10px;"></i>
+                    Gestión de Módulos
+                </h1>
+                <a href="/admin/dashboard" class="btn-admin">
+                    <i class="fas fa-arrow-left"></i> Volver al Dashboard
+                </a>
+            </div>
 
-                <div class="header-bar">
-                    <h1 class="page-title">Gestión de Módulos</h1>
-                    <a href="/admin/dashboard" class="btn-admin">
-                        <i class="fas fa-arrow-left"></i> Volver al Dashboard
-                    </a>
+            @if(session('success'))
+                <div class="alert">
+                    <i class="fas fa-check-circle"></i> {{ session('success') }}
                 </div>
+            @endif
 
-                @if(session('success'))
-                    <div class="alert">
-                        <i class="fas fa-check-circle"></i> {{ session('success') }}
-                    </div>
-                @endif
+            <a href="{{ route('modulos.create') }}" class="btn-new">
+                <i class="fas fa-plus-circle"></i> Nuevo Módulo
+            </a>
 
-                <a href="{{ route('modulos.create') }}" class="btn-new">
-                    <i class="fas fa-plus-circle"></i> Nuevo Módulo
-                </a>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 70px;">ID</th>
+                            <th>Título</th>
+                            <th>Descripción</th>
+                            <th style="width: 130px;">Estado</th>
+                            <th style="width: 150px;">Lecciones</th>
+                            <th style="width: 320px;">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($modulos as $modulo)
+                        <tr>
+                            <td><strong>#{{ $modulo->id }}</strong></td>
+                            <td><strong>{{ $modulo->titulo }}</strong></td>
+                            <td>
+                                <div class="td-desc" title="{{ $modulo->descripcion }}">
+                                    {{ $modulo->descripcion }}
+                                </div>
+                            </td>
 
-                <div class="table-wrapper">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th style="width: 70px;">ID</th>
-                                <th>Título</th>
-                                <th>Descripción</th>
-                                <th style="width: 130px;">Estado</th>
-                                <th style="width: 150px;">Lecciones</th>
-                                <th style="width: 320px;">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($modulos as $modulo)
-                            <tr>
-                                <td><strong>#{{ $modulo->id }}</strong></td>
-                                <td><strong>{{ $modulo->titulo }}</strong></td>
-                                <td>
-                                    <div class="td-desc" title="{{ $modulo->descripcion }}">
-                                        {{ $modulo->descripcion }}
-                                    </div>
-                                </td>
+                            {{-- Badge de estado --}}
+                            <td>
+                                @if($modulo->estado === 'publicado')
+                                    <span class="badge-publicado">
+                                        <i class="fas fa-circle" style="font-size:0.4rem;"></i> Publicado
+                                    </span>
+                                @else
+                                    <span class="badge-borrador">
+                                        <i class="fas fa-circle" style="font-size:0.4rem;"></i> Borrador
+                                    </span>
+                                @endif
+                            </td>
 
-                                {{-- Badge de estado --}}
-                                <td>
-                                    @if($modulo->estado === 'publicado')
-                                        <span class="badge-publicado">
-                                            <i class="fas fa-circle" style="font-size:0.4rem;"></i> Publicado
-                                        </span>
-                                    @else
-                                        <span class="badge-borrador">
-                                            <i class="fas fa-circle" style="font-size:0.4rem;"></i> Borrador
-                                        </span>
-                                    @endif
-                                </td>
+                            <td>
+                                <a href="/modulos/{{ $modulo->id }}/lecciones" class="btn-info">
+                                    <i class="fas fa-book-open"></i> Ver Lecciones
+                                </a>
+                            </td>
 
-                                <td>
-                                    <a href="/modulos/{{ $modulo->id }}/lecciones" class="btn-info">
-                                        <i class="fas fa-book-open"></i> Ver Lecciones
-                                    </a>
-                                </td>
+                            <td>
+                                <div class="btn-actions">
 
-                                <td>
-                                    <div class="btn-actions">
-
-                                        {{-- Botón Publicar / Despublicar --}}
-                                        <form action="{{ route('modulos.toggleEstado', $modulo) }}" method="POST" style="display:inline">
-                                            @csrf
-                                            @method('PATCH')
-                                            @if($modulo->estado === 'publicado')
-                                                <button type="submit" class="btn-toggle-off">
-                                                    <i class="fas fa-eye-slash"></i> Despublicar
-                                                </button>
-                                            @else
-                                                <button type="submit" class="btn-toggle-on">
-                                                    <i class="fas fa-eye"></i> Publicar
-                                                </button>
-                                            @endif
-                                        </form>
-
-                                        <a href="/modulos/{{ $modulo->id }}/edit" class="btn-warning">
-                                            <i class="fas fa-edit"></i> Editar
-                                        </a>
-
-                                        <form action="/modulos/{{ $modulo->id }}" method="POST" style="display:inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn-danger" onclick="return confirm('¿Eliminar este módulo?')">
-                                                <i class="fas fa-trash-alt"></i> Eliminar
+                                    {{-- Botón Publicar / Despublicar --}}
+                                    <form action="{{ route('modulos.toggleEstado', $modulo) }}" method="POST" style="display:inline">
+                                        @csrf
+                                        @method('PATCH')
+                                        @if($modulo->estado === 'publicado')
+                                            <button type="submit" class="btn-toggle-off">
+                                                <i class="fas fa-eye-slash"></i> Despublicar
                                             </button>
-                                        </form>
+                                        @else
+                                            <button type="submit" class="btn-toggle-on">
+                                                <i class="fas fa-eye"></i> Publicar
+                                            </button>
+                                        @endif
+                                    </form>
 
-                                    </div>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
+                                    <a href="/modulos/{{ $modulo->id }}/edit" class="btn-warning">
+                                        <i class="fas fa-edit"></i> Editar
+                                    </a>
 
-                <div class="pagination-wrapper">
-                    {{ $modulos->links() }}
-                </div>
+                                    <form action="/modulos/{{ $modulo->id }}" method="POST" style="display:inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn-danger" onclick="return confirm('¿Eliminar este módulo?')">
+                                            <i class="fas fa-trash-alt"></i> Eliminar
+                                        </button>
+                                    </form>
 
+                                </div>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
-        </main>
-    </div>
+
+            <div class="pagination-wrapper">
+                {{ $modulos->links() }}
+            </div>
+
+        </div>
+    </main>
 </body>
 </html>

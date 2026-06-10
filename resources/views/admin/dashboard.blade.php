@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Bitlyx Academy — Panel Admin</title>
-    <!-- Google Fonts: Nunito + Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Nunito:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Font Awesome 6 (íconos) -->
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
@@ -27,7 +27,7 @@
             min-height: 100vh;
         }
 
-        /* ========= SIDEBAR MINIMALISTA ========= */
+        /* ========= SIDEBAR ========= */
         .sidebar {
             width: 280px;
             background-color: #FFFFFF;
@@ -216,7 +216,7 @@
             font-size: 0.85rem;
         }
 
-        /* Sección de gestión - SOLO los botones originales */
+        /* Sección de gestión */
         .management-section {
             background: #FFFFFF;
             border-radius: 28px;
@@ -238,7 +238,6 @@
             color: #4ADE80;
         }
 
-        /* Botones exactamente iguales a los originales, solo con estilo Bitlyx */
         .menu-buttons {
             display: flex;
             flex-wrap: wrap;
@@ -276,28 +275,6 @@
             color: #064E3B;
         }
 
-        /* Logout flotante (original) */
-        .logout-float {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #4ADE80;
-            color: #064E3B;
-            padding: 8px 16px;
-            border-radius: 40px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.85rem;
-            z-index: 1000;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            transition: all 0.2s;
-        }
-
-        .logout-float:hover {
-            background: #15803D;
-            color: white;
-        }
-
         @media (max-width: 768px) {
             .app-wrapper {
                 flex-direction: column;
@@ -317,25 +294,17 @@
             .stats-grid {
                 flex-direction: column;
             }
-            .logout-float {
-                top: auto;
-                bottom: 20px;
-                right: 20px;
-            }
         }
     </style>
 </head>
 <body>
-    <!-- Botón logout flotante EXACTAMENTE como el original (position fixed) -->
-    <a href="{{ route('logout') }}" class="logout-float" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-        <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
-    </a>
+    <!-- SOLO el formulario oculto para logout, SIN botón flotante verde -->
     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
         @csrf
     </form>
 
     <div class="app-wrapper">
-        <!-- Sidebar Bitlyx Academy (solo navegación interna, sin botones extra) -->
+        <!-- Sidebar -->
         <aside class="sidebar">
             <div class="logo-area">
                 <span class="logo-bitlyx">Bitlyx</span>
@@ -347,7 +316,7 @@
                 </a>
             </div>
             <div class="logout-sidebar">
-                <!-- Enlace duplicado del logout (opcional, pero no añade nuevo botón de gestión) -->
+                <!-- Cerrar Sesión dentro del sidebar (estilo coherente) -->
                 <a href="{{ route('logout') }}" class="nav-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="fas fa-sign-out-alt"></i> <span>Cerrar Sesión</span>
                 </a>
@@ -371,7 +340,7 @@
                 </div>
             </div>
 
-            <!-- Estadísticas originales (mismas variables) -->
+            <!-- Estadísticas -->
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-icon"><i class="fas fa-cubes"></i></div>
@@ -390,7 +359,7 @@
                 </div>
             </div>
 
-            <!-- Gestión: SOLO los 3 botones originales, ningún otro -->
+            <!-- Gestión -->
             <div class="management-section">
                 <div class="section-title">
                     <i class="fas fa-sliders-h"></i> 
