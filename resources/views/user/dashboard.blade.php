@@ -80,7 +80,11 @@
             align-items: center;
             justify-content: center;
             font-family: 'Nunito', sans-serif;
+            text-decoration: none;
+            cursor: pointer;
+            transition: opacity 0.2s, transform 0.2s;
         }
+        .avatar:hover { opacity: 0.85; transform: scale(1.08); }
 
         .btn-logout {
             background: none;
@@ -370,7 +374,6 @@
         <div class="nav-left">
             <div class="logo">Bitlyx</div>
             <a href="{{ route('user.dashboard') }}" class="nav-link active">Inicio</a>
-            <a href="{{ route('user.perfil') }}" class="nav-link">Mi perfil</a>
         </div>
         <div class="nav-right">
             <div class="xp-badge">
@@ -381,7 +384,7 @@
                 $partes = explode(' ', trim($nombreCompleto));
                 $iniciales = strtoupper(substr($partes[0] ?? '', 0, 1) . substr($partes[1] ?? '', 0, 1));
             @endphp
-            <div class="avatar">{{ $iniciales }}</div>
+            <a href="{{ route('user.perfil') }}" class="avatar" title="Mi perfil">{{ $iniciales }}</a>
             <form action="{{ route('logout') }}" method="POST" style="margin:0">
                 @csrf
                 <button type="submit" class="btn-logout">Salir</button>
@@ -391,7 +394,7 @@
 
     <div class="container">
 
-        {{-- BANNER de módulo completado (flash message) --}}
+        {{-- BANNER de módulo completado --}}
         @if(session('success') && str_contains(session('success'), 'completado'))
         <div class="banner-completado">
             <div class="banner-icon"></div>
@@ -439,7 +442,6 @@
             $completadasCount = collect($completadasMap)->filter()->count();
             $moduloCompleto = ($totalLec > 0 && $completadasCount >= $totalLec);
 
-            // Primera lección no completada (para botón continuar)
             $proximaLeccion = null;
             foreach ($modulo->lecciones as $lec) {
                 if (!isset($completadasMap[$lec->id]) || !$completadasMap[$lec->id]) {
@@ -458,7 +460,7 @@
                 </div>
             </div>
 
-            {{-- PROGRESO VISUAL MEJORADO --}}
+            {{-- PROGRESO VISUAL --}}
             <div class="progress-wrap">
                 <div class="progress-header">
                     <span class="progress-label-text">Progreso del módulo</span>
@@ -510,7 +512,7 @@
                     <span class="badge-completado">Módulo completado</span>
                 @elseif($proximaLeccion)
                     <a href="{{ route('leccion.show', $proximaLeccion->id) }}" class="btn-continuar">
-                        {{ $completadasCount === 0 ? 'Comenzar' : 'Continuar' }} →
+                        {{ $completadasCount === 0 ? 'Comenzar' : 'Continuar' }} 
                     </a>
                 @endif
             </div>
