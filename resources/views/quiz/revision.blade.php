@@ -1,154 +1,94 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" id="html-root">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bitlyx — Revisión del Quiz</title>
+  <title>Bitlyx — Revisión</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Nunito:wght@700;800&display=swap" rel="stylesheet">
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      min-height: 100vh;
-      background: #f8fafc;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    }
-    .topbar {
-      background: #fff;
-      border-bottom: 1px solid #e2e8f0;
-      height: 60px;
-      padding: 0 32px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    .topbar-title { font-size: 16px; font-weight: 600; color: #0f172a; }
-    .btn-back {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      color: #64748b;
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 500;
-    }
-    .main { max-width: 720px; margin: 0 auto; padding: 40px 24px; }
-    .page-title { font-size: 22px; font-weight: 700; color: #0f172a; margin-bottom: 6px; }
-    .page-sub { font-size: 14px; color: #64748b; margin-bottom: 32px; }
-    .pregunta-card {
-      background: #fff;
-      border: 1px solid #e2e8f0;
-      border-radius: 14px;
-      padding: 24px;
-      margin-bottom: 16px;
-    }
-    .pregunta-num {
-      font-size: 11px;
-      font-weight: 600;
-      color: #64748b;
-      text-transform: uppercase;
-      letter-spacing: .5px;
-      margin-bottom: 8px;
-    }
-    .pregunta-texto {
-      font-size: 15px;
-      font-weight: 600;
-      color: #0f172a;
-      margin-bottom: 16px;
-      line-height: 1.5;
-    }
-    .opcion-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 14px;
-      border-radius: 8px;
-      margin-bottom: 8px;
-      border: 1.5px solid #e2e8f0;
-      font-size: 14px;
-      color: #334155;
-    }
-    .opcion-row.correcta {
-      border-color: #16a34a;
-      background: #dcfce7;
-      color: #14532d;
-      font-weight: 600;
-    }
-    .opcion-row.incorrecta {
-      border-color: #dc2626;
-      background: #fee2e2;
-      color: #7f1d1d;
-    }
-    .opcion-row.solo-correcta {
-      border-color: #16a34a;
-      background: #f0fdf4;
-      color: #14532d;
-    }
-    .opcion-icon { font-size: 15px; flex-shrink: 0; }
-    .result-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 11px;
-      font-weight: 600;
-      padding: 3px 10px;
-      border-radius: 20px;
-      margin-bottom: 12px;
-    }
-    .badge-ok  { background: #dcfce7; color: #14532d; }
-    .badge-mal { background: #fee2e2; color: #7f1d1d; }
-    .btn-dashboard {
-      display: block;
-      text-align: center;
-      margin-top: 32px;
-      padding: 14px;
-      background: #0f172a;
-      color: #fff;
-      border-radius: 10px;
-      text-decoration: none;
-      font-size: 15px;
-      font-weight: 600;
-    }
-    .btn-dashboard:hover { background: #1e293b; }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{background:#F3F4F6;font-family:'Inter',sans-serif;color:#111827;padding:24px;min-height:100vh}
+    .header{max-width:720px;margin:0 auto 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+    .page-title{font-family:'Nunito',sans-serif;font-size:1.5rem;font-weight:800}
+    .page-sub{font-size:.85rem;color:#6B7280;margin-top:2px}
+    .btn-back{display:inline-flex;align-items:center;gap:6px;padding:.55rem 1.2rem;background:#fff;border:1.5px solid #E5E7EB;border-radius:10px;font-size:.875rem;font-weight:600;color:#111827;text-decoration:none}
+    .btn-back:hover{background:#F9FAFB}
+
+    .pregunta-card{background:#fff;border:1px solid #E5E7EB;border-radius:16px;padding:22px 24px;max-width:720px;margin:0 auto 14px}
+    .card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+    .pregunta-num{font-size:.75rem;font-weight:700;color:#9CA3AF;text-transform:uppercase;letter-spacing:.4px}
+    .badge-ok{background:#DCFCE7;color:#14532D;font-size:.75rem;font-weight:700;padding:3px 12px;border-radius:20px}
+    .badge-mal{background:#FEE2E2;color:#991B1B;font-size:.75rem;font-weight:700;padding:3px 12px;border-radius:20px}
+    .badge-skip{background:#F3F4F6;color:#6B7280;font-size:.75rem;font-weight:700;padding:3px 12px;border-radius:20px}
+    .pregunta-texto{font-size:.975rem;font-weight:600;color:#111827;line-height:1.5;margin-bottom:14px}
+
+    .opcion-row{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;border:1.5px solid #E5E7EB;margin-bottom:8px;font-size:.875rem;color:#374151;background:#fff}
+    .opcion-row:last-child{margin-bottom:0}
+    .opcion-row.mi-correcta{border-color:#16a34a;background:#F0FDF4;color:#14532D;font-weight:600}
+    .opcion-row.mi-incorrecta{border-color:#dc2626;background:#FEF2F2;color:#991B1B;font-weight:600}
+    .opcion-icon{font-size:14px;flex-shrink:0;width:20px;text-align:center}
+
+    .footer{max-width:720px;margin:8px auto 0;display:flex;gap:10px;flex-wrap:wrap}
+    .btn-retry{display:inline-flex;align-items:center;gap:6px;padding:.65rem 1.4rem;background:#15803D;color:#fff;border-radius:10px;font-size:.875rem;font-weight:600;text-decoration:none}
+    .btn-retry:hover{background:#166534}
+    .btn-dash{display:inline-flex;align-items:center;gap:6px;padding:.65rem 1.4rem;background:#fff;color:#111827;border:1.5px solid #E5E7EB;border-radius:10px;font-size:.875rem;font-weight:600;text-decoration:none}
+    .btn-dash:hover{background:#F9FAFB}
   </style>
 </head>
 <body>
-  <div class="topbar">
-    <a href="{{ route('user.dashboard') }}" class="btn-back">← Salir</a>
-    <span class="topbar-title">Revisión del Quiz</span>
-    <span style="width:60px"></span>
+  <div class="header">
+    <div>
+      <h1 class="page-title">Revisión de respuestas</h1>
+      <p class="page-sub">{{ $modulo->titulo }}</p>
+    </div>
+    <a href="{{ route('user.dashboard') }}" class="btn-back">← Dashboard</a>
   </div>
 
-  <div class="main">
-    <h1 class="page-title">Revisión de respuestas</h1>
-    <p class="page-sub">{{ $leccion->titulo }}</p>
+  @foreach($preguntas as $i => $pregunta)
+    @php
+      $respuesta     = $mapaRespuestas->get($pregunta->id);
+      $esCorrecta    = $respuesta && $respuesta['es_correcta'];
+      $opcionElegida = $respuesta ? $respuesta['opcion_seleccionada_id'] : null;
+      $sinRespuesta  = !$opcionElegida;
+    @endphp
 
-    @foreach($preguntas as $i => $pregunta)
-      @php
-        $respuesta    = $mapaRespuestas->get($pregunta->id);
-        $esCorrecta   = $respuesta && $respuesta['es_correcta'];
-        $opcionElegida = $respuesta ? $respuesta['opcion_seleccionada_id'] : null;
-      @endphp
+    <div class="pregunta-card">
+      <div class="card-top">
+        <span class="pregunta-num">Pregunta {{ $i + 1 }}</span>
+        @if($sinRespuesta)
+          <span class="badge-skip">⏱ Sin respuesta</span>
+        @elseif($esCorrecta)
+          <span class="badge-ok">✓ Correcta</span>
+        @else
+          <span class="badge-mal">✗ Incorrecta</span>
+        @endif
+      </div>
 
-      <div class="pregunta-card">
-        <div class="pregunta-num">Pregunta {{ $i + 1 }}</div>
-        <span class="result-badge {{ $esCorrecta ? 'badge-ok' : 'badge-mal' }}">
-          {{ $esCorrecta ? '✓ Correcta' : '✗ Incorrecta' }}
-        </span>
-        <p class="pregunta-texto">{{ $pregunta->enunciado }}</p>
+      <p class="pregunta-texto">{{ $pregunta->enunciado }}</p>
 
-        @foreach($pregunta->opciones as $opcion)
-          @php
-            $seleccionada  = $opcionElegida == $opcion->id;
-            $esLaCorrecta  = $opcion->es_correcta;
-            $clase = '';
-            if ($seleccionada && $esLaCorrecta)  $clase = 'correcta';
-            elseif ($seleccionada && !$esLaCorrecta) $clase = 'incorrecta';
-            elseif (!$seleccionada && $esLaCorrecta) $clase = 'solo-correcta';
-          @endphp
-          <div class="opcion-row {{ $clase }}">
-            <span class="opcion-icon">
-              @if($seleccionada && $esLaCorrecta) ✓
-              @elseif($seleccionada && !$esLaCorrecta) ✗
-              @elseif(!$seleccionada && $esLaCorrecta) ➜
+      @foreach($pregunta->opciones as $opcion)
+        @php
+          $fueElegida   = $opcionElegida == $opcion->id;
+          $clase = '';
+          if ($fueElegida && $opcion->es_correcta)  $clase = 'mi-correcta';
+          elseif ($fueElegida && !$opcion->es_correcta) $clase = 'mi-incorrecta';
+        @endphp
+        <div class="opcion-row {{ $clase }}">
+          <span class="opcion-icon">
+            @if($fueElegida && $opcion->es_correcta) ✓
+            @elseif($fueElegida && !$opcion->es_correcta) ✗
+            @else &nbsp;
+            @endif
+          </span>
+          <span>{{ $opcion->texto }}</span>
+        </div>
+      @endforeach
+    </div>
+  @endforeach
+
+  <div class="footer">
+    <a href="{{ route('quiz.reintentar', $modulo->id) }}" class="btn-retry">🔄 Reintentar quiz</a>
+    <a href="{{ route('user.dashboard') }}" class="btn-dash">← Dashboard</a>
+  </div>
+</body>
+</html>

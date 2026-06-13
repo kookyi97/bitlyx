@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" id="html-root">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -198,6 +198,60 @@
             .navbar { padding: 0 1rem; }
             .container { padding: 1.5rem 1rem; }
         }
+    
+    /* ── DARK MODE GLOBAL ── */
+    #html-root.dark body { background: #0D0D0D !important; color: #F9FAFB !important; }
+    #html-root.dark .navbar,
+    #html-root.dark .sidebar,
+    #html-root.dark .quiz-topbar { background: #111111 !important; border-color: #222222 !important; }
+    #html-root.dark .leccion-card,
+    #html-root.dark .modulo-card,
+    #html-root.dark .stat-card,
+    #html-root.dark .filter-card,
+    #html-root.dark .table-card,
+    #html-root.dark .pregunta-card,
+    #html-root.dark .quiz-card,
+    #html-root.dark .card { background: #1A1A1A !important; border-color: #2D2D2D !important; }
+    #html-root.dark h1,
+    #html-root.dark h2,
+    #html-root.dark h3,
+    #html-root.dark .stat-num,
+    #html-root.dark .enunciado,
+    #html-root.dark .leccion-titulo,
+    #html-root.dark .page-title,
+    #html-root.dark .page-sub { color: #F9FAFB !important; }
+    #html-root.dark p { color: #9CA3AF !important; }
+    #html-root.dark .leccion-body { background: #111111 !important; border-color: #2D2D2D !important; color: #E5E7EB !important; }
+    #html-root.dark .lecciones-list { background: #111111 !important; border-color: #2D2D2D !important; }
+    #html-root.dark .leccion-row { color: #F9FAFB !important; border-bottom-color: #2D2D2D !important; }
+    #html-root.dark .leccion-row.completada { color: #9CA3AF !important; }
+    #html-root.dark .leccion-row.disponible:hover,
+    #html-root.dark .leccion-row.completada:hover { background: #1E3A2F !important; }
+    #html-root.dark .progress-bar-bg,
+    #html-root.dark .progress-track { background: #2D2D2D !important; }
+    #html-root.dark .opcion-btn { background: #1A1A1A !important; border-color: #2D2D2D !important; color: #F9FAFB !important; }
+    #html-root.dark .opcion-btn:hover:not(:disabled) { background: #14532D !important; border-color: #4ADE80 !important; }
+    #html-root.dark select,
+    #html-root.dark input,
+    #html-root.dark textarea { background: #1A1A1A !important; border-color: #2D2D2D !important; color: #F9FAFB !important; }
+    #html-root.dark table thead th { background: #111111 !important; color: #9CA3AF !important; border-color: #2D2D2D !important; }
+    #html-root.dark table tbody td { color: #F9FAFB !important; border-color: #2D2D2D !important; }
+    #html-root.dark table tbody tr:hover { background: #1A1A1A !important; }
+    #html-root.dark .nav-item { color: #9CA3AF !important; }
+    #html-root.dark .nav-item.active,
+    #html-root.dark .nav-item:hover { background: #1A1A1A !important; color: #4ADE80 !important; }
+    #html-root.dark .nav-item.active i,
+    #html-root.dark .nav-item:hover i { color: #4ADE80 !important; }
+    #html-root.dark .xp-badge { background: #14532D !important; color: #4ADE80 !important; border-color: #15803D !important; }
+    #html-root.dark .modulo-tag { background: #14532D !important; color: #4ADE80 !important; }
+    #html-root.dark .xp-tag { background: #14532D !important; color: #4ADE80 !important; border-color: #15803D !important; }
+    #html-root.dark .breadcrumb a { color: #9CA3AF !important; }
+    #html-root.dark .count-badge { background: #14532D !important; color: #4ADE80 !important; }
+    #html-root.dark .opcion-row { background: #1A1A1A !important; border-color: #2D2D2D !important; color: #F9FAFB !important; }
+    #html-root.dark .intentos-box { background: #111111 !important; border-color: #2D2D2D !important; }
+    #html-root.dark .intento-row { border-color: #2D2D2D !important; color: #F9FAFB !important; }
+    #html-root.dark .prog-wrap { background: #2D2D2D !important; }
+
     </style>
 </head>
 <body>
@@ -330,6 +384,24 @@
             </form>
         </div>
     </div>
+
+
+    <script>
+    (function() {
+        var btn  = document.getElementById('dark-btn');
+        var root = document.getElementById('html-root');
+        function applyDark(on) {
+            if (on) { root.classList.add('dark'); }
+            else     { root.classList.remove('dark'); }
+            if (btn) btn.textContent = on ? '☀️' : '🌙';
+            localStorage.setItem('bitlyx-dark', on ? '1' : '0');
+        }
+        applyDark(localStorage.getItem('bitlyx-dark') === '1');
+        if (btn) btn.addEventListener('click', function() {
+            applyDark(!root.classList.contains('dark'));
+        });
+    })();
+    </script>
 
 </body>
 </html>

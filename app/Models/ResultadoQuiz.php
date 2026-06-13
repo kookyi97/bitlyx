@@ -7,16 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 class ResultadoQuiz extends Model
 {
     protected $table = 'resultados_quiz';
-    
-    public $timestamps = false;  // No usamos timestamps automáticos
+    public $timestamps = false;
 
     protected $fillable = [
         'usuario_id',
-        'leccion_id',
+        'modulo_id',
         'correctas',
         'total',
         'xp_ganado',
-        'fecha',  // ← Agregar fecha al fillable
+        'fecha',
     ];
 
     public function usuario()
@@ -24,8 +23,8 @@ class ResultadoQuiz extends Model
         return $this->belongsTo(Usuario::class, 'usuario_id');
     }
 
-    public function leccion()
+    public function modulo()
     {
-        return $this->belongsTo(Leccion::class, 'leccion_id');
+        return $this->belongsTo(Modulo::class, 'modulo_id');
     }
 }
