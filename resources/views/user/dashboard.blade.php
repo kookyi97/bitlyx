@@ -167,7 +167,7 @@
 
         @if(session('success') && str_contains(session('success'), 'completado'))
         <div class="banner-completado">
-            <div class="banner-icon">🎉</div>
+            <div class="banner-icon"> </div>
             <div>
                 <h3>¡Módulo completado!</h3>
                 <p>{{ session('success') }} Sigue así, vas muy bien.</p>
@@ -305,7 +305,7 @@
                     @endif
                 @elseif($proximaLeccion)
                     <a href="{{ route('leccion.show', $proximaLeccion->id) }}" class="btn-continuar">
-                        {{ $completadasCount === 0 ? 'Comenzar' : 'Continuar' }} →
+                        {{ $completadasCount === 0 ? 'Comenzar' : 'Continuar' }} 
                     </a>
                 @endif
             </div>

@@ -127,7 +127,7 @@
             </div>
             <div style="display:flex;gap:10px;align-items:center">
                 <button class="dark-btn" id="dark-btn" title="Modo oscuro">🌙</button>
-                <a href="/modulos" class="btn-back">← Volver</a>
+                <a href="/modulos" class="btn-back"> Volver</a>
             </div>
         </div>
 
