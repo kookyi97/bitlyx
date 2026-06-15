@@ -177,7 +177,7 @@
 
         @if(session('info'))
         <div style="background:#EFF6FF;border:1px solid #BFDBFE;border-radius:12px;padding:1rem 1.5rem;margin-bottom:1.5rem;display:flex;align-items:center;gap:10px;font-size:.9rem;color:#1E3A8A;font-weight:500">
-            📝 {{ session('info') }}
+             {{ session('info') }}
         </div>
         @endif
 
@@ -188,17 +188,17 @@
 
         <div class="stats-grid">
             <div class="stat-card">
-                <div class="stat-icon">📚</div>
+                <div class="stat-icon"> </div>
                 <div class="stat-num">{{ $leccionesCompletadasGlobal ?? 0 }} / {{ $totalLeccionesGenerales ?? 0 }}</div>
                 <div class="stat-label">Lecciones</div>
             </div>
             <div class="stat-card">
-                <div class="stat-icon">⚡</div>
+                <div class="stat-icon"> </div>
                 <div class="stat-num">{{ Auth::user()->xp_total ?? 0 }}</div>
                 <div class="stat-label">Puntos XP</div>
             </div>
             <div class="stat-card">
-                <div class="stat-icon">🎯</div>
+                <div class="stat-icon"> </div>
                 <div class="stat-num">{{ $porcentajeGlobal ?? 0 }}%</div>
                 <div class="stat-label">Progreso global</div>
             </div>
@@ -283,7 +283,7 @@
                     @endphp
                     @if($moduloTotalCompleto)
                         <div style="display:flex;align-items:center;gap:.8rem;flex-wrap:wrap">
-                            <span class="badge-completado">🏆 Módulo completado</span>
+                            <span class="badge-completado"> Módulo completado</span>
                             @if($tienePreguntas)
                                 <a href="{{ route('quiz.show', $modulo->id) }}" style="display:inline-flex;align-items:center;gap:6px;padding:.4rem 1rem;background:#EFF6FF;color:#1E3A8A;border-radius:20px;font-size:.8rem;font-weight:700;text-decoration:none;border:1.5px solid #BFDBFE">🔄 Reintentar Quiz</a>
                             @endif
@@ -293,7 +293,7 @@
                             @if($tienePreguntas)
                                 @if($resultadoQuiz)
                                     <span style="display:inline-flex;align-items:center;gap:6px;font-size:.8rem;font-weight:700;color:#92400E;background:#FEF3C7;padding:.35rem .9rem;border-radius:20px;border:1.5px solid #FDE68A">
-                                        📝 Último intento: {{ round($resultadoQuiz->correctas/$resultadoQuiz->total*100) }}% — necesitas ≥70%
+                                         Último intento: {{ round($resultadoQuiz->correctas/$resultadoQuiz->total*100) }}% — necesitas ≥70%
                                     </span>
                                     <a href="{{ route('quiz.show', $modulo->id) }}" style="display:inline-flex;align-items:center;gap:6px;padding:.5rem 1.2rem;background:#EF4444;color:#fff;border-radius:20px;font-size:.82rem;font-weight:700;text-decoration:none">🔄 Reintentar Quiz</a>
                                 @else
