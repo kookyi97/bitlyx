@@ -389,7 +389,7 @@
                     <span class="ya-completada">✓ Completada</span>
                     @if(!$siguiente)
                         <a href="{{ route('quiz.show', $leccion->modulo_id) }}" class="btn-quiz">
-                            🎯 Ir al Quiz
+                             Ir al Quiz
                         </a>
                     @endif
                 @endif
