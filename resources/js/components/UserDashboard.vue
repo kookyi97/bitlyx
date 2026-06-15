@@ -88,7 +88,7 @@
               :href="'/leccion/' + proximaLeccion(modulo).id"
               class="btn-continuar"
             >
-              {{ modulo.completadas === 0 ? 'Comenzar módulo' : 'Continuar' }} →
+              {{ modulo.completadas === 0 ? 'Comenzar módulo' : 'Continuar' }} 
             </a>
             <span v-else class="modulo-completado-badge">Módulo completado</span>
           </div>
